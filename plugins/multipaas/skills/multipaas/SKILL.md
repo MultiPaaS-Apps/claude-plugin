@@ -27,7 +27,7 @@ The CLI talks to `https://api.multipaas.com` unless the environment variable `MU
 
 | Command | stdout on exit 0 |
 |---|---|
-| `multipaas login --json` | `{"user": {"id": "ID", "email": "EMAIL", "name": "NAME"}}` |
+| `multipaas login --json` | `{"user": {"id": "ID", "email": "EMAIL", "name": "NAME"}}`; `name` is `null` when the user has none |
 | `multipaas whoami --json` | The same, without signing in again |
 | `multipaas apps list --json` | `[{"clientId": "ID", "clientName": "NAME", "id": "ID", "name": "NAME"}]` |
 | `multipaas tenants list --app APP_ID --json` | `[{"id": "ID", "name": "NAME"}]`, the app-tenants of that application |
