@@ -10,5 +10,5 @@ In Claude Code:
 /plugin install multipaas@multipaas
 ```
 
-While this repository is private, Claude Code clones it with your own git credentials. Run
-`gh auth login`, then `gh auth setup-git`.
+While this repository is private, Claude Code clones it with your own git credentials. Install the
+[GitHub CLI](https://cli.github.com) (`gh`), run `gh auth login`, then `gh auth setup-git`.
