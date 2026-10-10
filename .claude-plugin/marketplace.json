@@ -1,0 +1,14 @@
+{
+  "name": "multipaas",
+  "owner": {
+    "name": "MultiPaaS"
+  },
+  "description": "Claude Code plugins for building on MultiPaaS.",
+  "plugins": [
+    {
+      "name": "multipaas",
+      "source": "./plugins/multipaas",
+      "description": "Drive the multipaas CLI from Claude Code: sign in, see who you are, list your apps and their app-tenants."
+    }
+  ]
+}
