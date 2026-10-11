@@ -34,6 +34,7 @@ The CLI talks to `https://api.multipaas.com` unless the environment variable `MU
 | `multipaas logout --json` | `{"signedOut": true}`, or `false` when the user was not signed in. On exit 0 the user is signed out. If the server could not confirm revoking the tokens, it exits 1 with code `REVOKE_FAILED`, and the user is still signed out on this machine |
 
 `APP_ID` is an `id` from `apps list`.
+To read or change an application's model, use the `multipaas-model` skill.
 
 ## Signing in
 
