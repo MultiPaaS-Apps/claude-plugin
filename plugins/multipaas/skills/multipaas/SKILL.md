@@ -36,6 +36,8 @@ The CLI talks to `https://api.multipaas.com` unless the environment variable `MU
 `APP_ID` is an `id` from `apps list`.
 To read or change an application's model, use the `multipaas-model` skill.
 
+To build an app on an application's API, use the `multipaas-build` skill; for its end users' sign-in, the `multipaas-sign-in` skill.
+
 ## Signing in
 
 `login` opens the user's browser and waits up to 5 minutes for them to approve "Allow MultiPaaS CLI?".
