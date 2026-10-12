@@ -8,7 +8,7 @@ allowed-tools: Bash(multipaas *)
 
 The `multipaas` skill covers installing the CLI, signing in and the exit codes. The `multipaas-model` skill changes the model. The `multipaas-sign-in` skill adds end-user sign-in. This skill sets up the app's project and its calls to the generated API.
 
-These commands need CLI 0.3.0 or later. If `multipaas init --help` exits 1 with `CLI_ERROR` and `unknown command`, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update && HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
+These commands need CLI 0.3.0 or later. If `multipaas init --help` exits 1 with `CLI_ERROR` and `unknown command`, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
 
 ## Set up the project
 
