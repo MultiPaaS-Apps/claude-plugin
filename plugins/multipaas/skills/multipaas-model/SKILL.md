@@ -16,7 +16,7 @@ Every change acts on the live model of one application, as the signed-in develop
 2. Read its model: `multipaas model show --app APP_ID --json`. Use the ids it prints. Never guess an id.
 3. Say what you are about to change, in a sentence, before running a command that retires something.
 
-If `multipaas model show` exits 1 with `CLI_ERROR` and an `unknown command` message, the CLI is older than 0.2.0. Ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
+If `multipaas model show` exits 1 with `CLI_ERROR` and an `unknown command` message, the CLI is older than 0.2.0. Ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update && HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
 
 ## Commands
 
