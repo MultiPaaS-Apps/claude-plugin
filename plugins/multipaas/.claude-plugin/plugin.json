@@ -1,6 +1,6 @@
 {
   "name": "multipaas",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Drive the multipaas CLI from Claude Code: sign in, change an application's model, and build an app on its API with end-user sign-in.",
   "author": { "name": "MultiPaaS" },
   "homepage": "https://github.com/MultiPaaS-Apps/claude-plugin",
