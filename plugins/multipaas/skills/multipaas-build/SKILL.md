@@ -1,6 +1,6 @@
 ---
 name: multipaas-build
-description: Build an app on a MultiPaaS application's generated GraphQL API, pinned to one API version, by running the multipaas CLI — set up multipaas.json, pull the schema for codegen, move to a newer API version, and read and write test records. Use when the user wants to build, scaffold or change an app on their MultiPaaS model, call its API, or create test data.
+description: Build an app on a MultiPaaS application's generated GraphQL API, pinned to one API version, by running the multipaas CLI — set up multipaas.json, pull the schema for codegen, and read and write test records. Use when the user wants to build, scaffold or change an app on their MultiPaaS model, call its API, or create test data.
 allowed-tools: Bash(multipaas *)
 ---
 
@@ -33,11 +33,7 @@ In this directory, `--app` defaults to the application in `multipaas.json`, and 
 
 ## Moving to a newer API version
 
-A model change mints a new API version. The app stays on its pin until it moves, so a change never breaks it.
-
-1. `multipaas versions list --json` → `[{"id", "createdAt", "pinned"}]`, newest first.
-2. `multipaas pin --json` pins the newest version, or `--api-version ID` pins that one. It prints the new `multipaas.json`.
-3. `multipaas schema pull --json`, regenerate the app's code, and fix what the compiler or the type checker reports. Tell the user what changed.
+A model change mints a new API version. The app stays on its pin until it moves, so a change never breaks it. To see what changed or to move the app, use the `multipaas-upgrade` skill.
 
 ## Test data
 
