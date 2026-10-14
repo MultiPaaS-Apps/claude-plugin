@@ -1,12 +1,14 @@
 ---
 name: multipaas-model
-description: Change a MultiPaaS application's model — declare, change and retire entities, fields (including enums and references) and unique constraints — by running the multipaas CLI. Use when the user wants to model data, add or change an entity or field, or asks what their MultiPaaS model looks like.
+description: Change a MultiPaaS application's model — declare, change and retire entities, enums, fields (including enum and reference fields) and unique constraints — by running the multipaas CLI. Use when the user wants to model data, add or change an entity, enum or field, or asks what their MultiPaaS model looks like.
 allowed-tools: Bash(multipaas *)
 ---
 
 # Change the model
 
 The `multipaas` skill covers installing the CLI, signing in and the exit codes. Follow it for those. This skill is for the model commands.
+
+These commands need CLI 0.5.0 or later. If `multipaas --version` reports an older version, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
 
 Every change acts on the live model of one application, as the signed-in developer, with exactly their permissions in the MultiPaaS web app. A change takes effect immediately and mints a new API version. There is no publish step.
 
@@ -20,21 +22,24 @@ If `multipaas model show` exits 1 with `CLI_ERROR` and an `unknown command` mess
 
 ## Commands
 
-All take `--app APP_ID --json`. On exit 0, a change prints `{"entity" | "field" | "constraint": {...}, "apiVersion": "ID"}`.
+All take `--app APP_ID --json`. On exit 0, a change prints `{"entity" | "enumType" | "field" | "constraint": {...}, "apiVersion": "ID"}`.
 
 | Command | Does |
 |---|---|
-| `multipaas model show` | `{"apiVersion": "ID", "entities": [{"id", "name", "graphqlTypeName", "graphqlPluralName", "managed", "fields": [...], "constraints": [...]}]}`. `apiVersion` is `""` before the first change |
+| `multipaas model show` | `{"apiVersion": "ID", "entities": [{"id", "name", "graphqlTypeName", "graphqlPluralName", "managed", "fields": [...], "constraints": [...]}], "enums": [{"id", "name", "graphqlTypeName", "values": [{"value", "graphqlName"}]}]}`. `apiVersion` is `""` before the first change |
 | `multipaas entity create --name NAME [--type-name T] [--plural-name P]` | Declare an entity |
 | `multipaas entity update --id ENTITY_ID [--name] [--type-name] [--plural-name] [--managed[=false]]` | Rename an entity or change whether it is managed |
 | `multipaas entity retire --id ENTITY_ID` | Retire an entity |
-| `multipaas field add --entity ENTITY_ID --type TYPE [--name] [--api-name] [--required] [--enum-values a,b] [--references ENTITY_ID] [--related FIELD_ID] [--parent] [--lifecycle]` | Add a field |
-| `multipaas field update --id FIELD_ID [--type] [--name] [--api-name] [--required[=false]] [--enum-values] [--references] [--related] [--parent[=false]]` | Change a field. Only the flags given change |
+| `multipaas enum create --name NAME --values a,b=API_NAME [--type-name T]` | Declare an enum. Each value is `VALUE` or `VALUE=API_NAME`, split on the last `=`, so a value that contains `=` needs a trailing `=API_NAME`; the API name defaults to SCREAMING_SNAKE_CASE of the value |
+| `multipaas enum update --id ENUM_ID [--name] [--type-name] [--values a,b=API_NAME]` | Change an enum. `--values` takes the same `VALUE` or `VALUE=API_NAME` form and replaces the whole list, so a value not given is removed (refused while a record or a field default holds it), and an API name not given goes back to its default |
+| `multipaas enum retire --id ENUM_ID` | Retire an enum |
+| `multipaas field add --entity ENTITY_ID --type TYPE [--name] [--api-name] [--required] [--enum-type ENUM_ID] [--references ENTITY_ID] [--related FIELD_ID] [--parent] [--lifecycle]` | Add a field |
+| `multipaas field update --id FIELD_ID [--type] [--name] [--api-name] [--required[=false]] [--enum-type ENUM_ID] [--references] [--related] [--parent[=false]]` | Change a field. Only the flags given change |
 | `multipaas field retire --id FIELD_ID` | Retire a field |
 | `multipaas constraint add --entity ENTITY_ID --fields FIELD_ID,FIELD_ID` | Make those fields unique together |
 | `multipaas constraint retire --id CONSTRAINT_ID` | Retire a constraint |
 
-`TYPE` is one of `text`, `number`, `boolean`, `timestamp`, `enum` (with `--enum-values`), `reference` (with `--references`, the target entity's id) or `related` (with `--related`, the id of a reference field on another entity that points here).
+`TYPE` is one of `text`, `number`, `boolean`, `timestamp`, `enum` (with `--enum-type`, an enum's id from `model show`; create the enum first with `enum create`, and one enum can be shared by several fields), `reference` (with `--references`, the target entity's id) or `related` (with `--related`, the id of a reference field on another entity that points here).
 
 ## After a change
 

@@ -27,9 +27,9 @@ In this directory, `--app` defaults to the application in `multipaas.json`, and 
 - Every request is `POST` to `endpoints.graphql`, with the headers `Authorization: Bearer <the end user's access token>` and `X-MultiPaaS-App-Api-Version: <apiVersion from multipaas.json>`.
 - There is no default version. A request without the header is refused with HTTP 400, and an unknown version with 404.
 - The access token comes from end-user sign-in: see the `multipaas-sign-in` skill. The developer's own CLI sign-in never goes into the app.
-- For each entity, the schema has a query for one record by id, a paginated list, and delete and restore mutations. Create is left out when a required field without a default isn't exposed (enum fields aren't exposed yet), and update is left out when none of the entity's fields are exposed. `me` is a top-level query. A reference field is set through its `…Id` input. The schema itself is the reference: read `multipaas.graphql` rather than guessing names.
+- For each entity, the schema has a query for one record by id, a paginated list, and delete and restore mutations. Create is left out when a required field without a default isn't exposed, and update is left out when none of the entity's fields are exposed. `me` is a top-level query. A reference field is set through its `…Id` input. The schema itself is the reference: read `multipaas.graphql` rather than guessing names.
 - A refused request carries `errors[0].extensions.code`. For `VALIDATION`, `fieldErrors` says which field.
-- **Enum fields don't appear in the generated API yet.** If the model has one, tell the user the app can't read or write it through the API for now.
+- An enum field is a GraphQL enum named for its enum type. Send and read its values by their GraphQL names, which `multipaas.graphql` lists.
 
 ## Moving to a newer API version
 
