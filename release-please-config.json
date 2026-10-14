@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bootstrap-sha": "8a9c8cc220ab9660c98d572f41a43d054e5f9896",
+  "pull-request-title-pattern": "chore: release ${version}",
+  "include-component-in-tag": false,
+  "packages": {
+    ".": {
+      "release-type": "simple",
+      "package-name": "multipaas",
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "plugins/multipaas/.claude-plugin/plugin.json",
+          "jsonpath": "$.version"
+        }
+      ]
+    }
+  }
+}
