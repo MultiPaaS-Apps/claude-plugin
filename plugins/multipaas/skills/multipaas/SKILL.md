@@ -31,6 +31,7 @@ The CLI talks to `https://api.multipaas.com` unless the environment variable `MU
 | `multipaas whoami --json` | The same, without signing in again |
 | `multipaas apps list --json` | `[{"clientId": "ID", "clientName": "NAME", "id": "ID", "name": "NAME"}]` |
 | `multipaas tenants list --app APP_ID --json` | `[{"id": "ID", "name": "NAME"}]`, the app-tenants of that application |
+| `multipaas tenants create --app APP_ID --name NAME --json` | `{"appTenant": {"id": "ID", "name": "NAME"}}`, the new app-tenant. It needs permission to manage the application, and CLI 0.5.0 or later: on an older `multipaas --version`, see the `multipaas-build` skill for the upgrade |
 | `multipaas logout --json` | `{"signedOut": true}`, or `false` when the user was not signed in. On exit 0 the user is signed out. If the server could not confirm revoking the tokens, it exits 1 with code `REVOKE_FAILED`, and the user is still signed out on this machine |
 
 `APP_ID` is an `id` from `apps list`.
