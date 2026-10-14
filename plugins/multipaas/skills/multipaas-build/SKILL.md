@@ -8,13 +8,13 @@ allowed-tools: Bash(multipaas *)
 
 The `multipaas` skill covers installing the CLI, signing in and the exit codes. The `multipaas-model` skill changes the model. The `multipaas-sign-in` skill adds end-user sign-in. This skill sets up the app's project and its calls to the generated API.
 
-These commands need CLI 0.3.0 or later. If `multipaas init --help` exits 1 with `CLI_ERROR` and `unknown command`, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
+These commands need CLI 0.5.0 or later. If `multipaas --version` reports an older version, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
 
 ## Set up the project
 
 Run these in the app's own directory, which is where `multipaas.json` lives.
 
-1. Find the application: `multipaas apps list --json`. Find an app-tenant to test in: `multipaas tenants list --app APP_ID --json`. Ask the user which one if more than one fits.
+1. Find the application: `multipaas apps list --json`. Find an app-tenant to test in: `multipaas tenants list --app APP_ID --json`. Ask the user which one if more than one fits. If the list is `[]`, the application has no app-tenant yet. Offer to create one to test in, and on a yes run `multipaas tenants create --app APP_ID --name NAME --json`. It prints `{"appTenant": {"id", "name"}}`, and its `id` is the `APP_TENANT_ID` for step 2. It needs permission to manage the application. If it exits 1 with `UNAUTHORIZED`, tell the user to ask someone who manages the application.
 2. `multipaas init --app APP_ID --tenant APP_TENANT_ID --json` writes `multipaas.json` and pins the newest API version. It prints:
    `{"config": {"applicationId", "testAppTenantId", "apiVersion", "oauthClientId"?}, "endpoints": {"graphql", "authorize", "token", "revoke"}}`
    Commit `multipaas.json`. Put the endpoints in the app's config. Never write a MultiPaaS host from memory.
@@ -27,9 +27,9 @@ In this directory, `--app` defaults to the application in `multipaas.json`, and 
 - Every request is `POST` to `endpoints.graphql`, with the headers `Authorization: Bearer <the end user's access token>` and `X-MultiPaaS-App-Api-Version: <apiVersion from multipaas.json>`.
 - There is no default version. A request without the header is refused with HTTP 400, and an unknown version with 404.
 - The access token comes from end-user sign-in: see the `multipaas-sign-in` skill. The developer's own CLI sign-in never goes into the app.
-- For each entity, the schema has a query for one record by id, a paginated list, and delete and restore mutations. Create is left out when a required field without a default isn't exposed (enum fields aren't exposed yet), and update is left out when none of the entity's fields are exposed. `me` is a top-level query. A reference field is set through its `…Id` input. The schema itself is the reference: read `multipaas.graphql` rather than guessing names.
+- For each entity, the schema has a query for one record by id, a paginated list, and delete and restore mutations. Create is left out when a required field without a default isn't exposed, and update is left out when none of the entity's fields are exposed. `me` is a top-level query. A reference field is set through its `…Id` input. The schema itself is the reference: read `multipaas.graphql` rather than guessing names.
 - A refused request carries `errors[0].extensions.code`. For `VALIDATION`, `fieldErrors` says which field.
-- **Enum fields don't appear in the generated API yet.** If the model has one, tell the user the app can't read or write it through the API for now.
+- An enum field is a GraphQL enum named for its enum type. Send and read its values by their GraphQL names, which `multipaas.graphql` lists.
 
 ## Moving to a newer API version
 
