@@ -8,7 +8,7 @@
     {
       "name": "multipaas",
       "source": "./plugins/multipaas",
-      "description": "Drive the multipaas CLI from Claude Code: sign in, see who you are, list your apps and their app-tenants."
+      "description": "Build apps with MultiPaaS as the backend, without leaving Claude Code."
     }
   ]
 }
