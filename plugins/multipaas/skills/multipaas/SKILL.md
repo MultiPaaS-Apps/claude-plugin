@@ -23,6 +23,8 @@ HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew install multipaas-apps/tap/mul
 
 The CLI talks to `https://api.multipaas.com` unless the environment variable `MULTIPAAS_API_URL` is set. The user sets it themselves, to the URL they were given. Never make one up, and don't set it unless the user tells you the value. A sign-in is kept per URL, so after the user changes it they sign in again.
 
+The CLI keeps the developer's sign-in to itself. Never read, print or copy its stored credentials, and never call a MultiPaaS API with the developer's token. Use the CLI's commands. When none does what is needed, tell the user rather than working around it.
+
 ## Commands
 
 | Command | stdout on exit 0 |

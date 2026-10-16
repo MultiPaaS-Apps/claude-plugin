@@ -27,8 +27,12 @@ In this directory, `--app` defaults to the application in `multipaas.json`, and 
 - Every request is `POST` to `endpoints.graphql`, with the headers `Authorization: Bearer <the end user's access token>` and `X-MultiPaaS-App-Api-Version: <apiVersion from multipaas.json>`.
 - There is no default version. A request without the header is refused with HTTP 400, and an unknown version with 404.
 - The access token comes from end-user sign-in: see the `multipaas-sign-in` skill. The developer's own CLI sign-in never goes into the app.
-- For each entity, the schema has a query for one record by id, a paginated list, and delete and restore mutations. Create is left out when a required field without a default isn't exposed, and update is left out when none of the entity's fields are exposed. `me` is a top-level query. A reference field is set through its `…Id` input. The schema itself is the reference: read `multipaas.graphql` rather than guessing names.
-- A refused request carries `errors[0].extensions.code`. For `VALIDATION`, `fieldErrors` says which field.
+- For each entity, the schema has a query for one record by id, a paginated list, and delete and restore mutations. Create is left out when a required field without a default isn't exposed, and update is left out when none of the entity's fields are exposed. `me` is a top-level query. The schema itself is the reference: read `multipaas.graphql` rather than guessing names.
+- A list takes `page: {page, pageSize}`. `page` counts from 0, and `pageSize` defaults to 20 and can be at most 100: a larger one is refused, not reduced. It returns `{items, pageInfo: {page, pageSize, hasMore}}`, with live records only, newest first. Fetch the next page while `hasMore` is true.
+- A top-level list can't be filtered. To show one record's children, such as a cookbook's recipes, give the parent entity a `related` field over the child's reference field (see the `multipaas-model` skill), and query it on the parent: `cookbook(id: …) { recipes { items { … } } }`. It takes the same `page` argument. Don't fetch every record and filter in the app.
+- A reference field is set through its `…Id` input. Reading it returns the record it points at, even when that record is retired, or `null` when there is none or the end user can't read it.
+- A refused request carries `errors[0].extensions.code`. For `VALIDATION`, `errors[0].extensions.fieldErrors` is `[{"field", "rule", "message"}]`, where `field` is the input's GraphQL name: `…Id` for a reference, `page` or `pageSize` for a list's paging, and empty when the field can't be named.
+- The CLI doesn't run queries against the app's API. To see what records the app-tenant holds, use `multipaas records list` (below).
 - An enum field is a GraphQL enum named for its enum type. Send and read its values by their GraphQL names, which `multipaas.graphql` lists.
 
 ## Moving to a newer API version

@@ -41,9 +41,13 @@ All take `--app APP_ID --json`. On exit 0, a change prints `{"entity" | "enumTyp
 
 `TYPE` is one of `text`, `number`, `boolean`, `timestamp`, `enum` (with `--enum-type`, an enum's id from `model show`; create the enum first with `enum create`, and one enum can be shared by several fields), `reference` (with `--references`, the target entity's id) or `related` (with `--related`, the id of a reference field on another entity that points here).
 
+A `related` field is how a record lists the records that reference it: to list a cookbook's recipes, add a `related` field to Cookbook with `--related` set to Recipe's reference field to Cookbook. It adds no data. The generated API pages through those records on the parent.
+
 ## After a change
 
 Tell the user what changed and the `apiVersion` it printed. That is the API version the model is at after the change. An app the user builds pins a version, so a change never breaks an app already built on an earlier one.
+
+Changing a field's `--api-name` renames it in the API, in the new version only. An app pinned to an earlier version keeps the old name, and its records carry over, because records are keyed by field id. Changing only `--name` leaves the API as it is.
 
 Exit 0 with `"apiVersion": ""` means the change was made but its version could not be read. Run `multipaas model show --app APP_ID --json` to get the current version.
 
