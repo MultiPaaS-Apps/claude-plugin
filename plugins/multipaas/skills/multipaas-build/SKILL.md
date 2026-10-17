@@ -46,6 +46,8 @@ The `records` commands read and write the test app-tenant's records as the devel
 | Command | Does |
 |---|---|
 | `multipaas records list --entity ENTITY_ID --json` | `[{"id", "data", "createdAt", "updatedAt"}]`, newest first |
+| `multipaas records get --entity ENTITY_ID --id RECORD_ID --json` | `{"record": {"id", "data", "createdAt", "updatedAt"}}`; a record that doesn't exist is a refusal |
+| `multipaas records list --entity ENTITY_ID --parent-field FIELD_ID --parent-record RECORD_ID --json` | The child records of that parent, newest first: the records whose parent reference field (`isParent` in `model show`) holds `--parent-record`. Give both flags or neither |
 | `multipaas records create --entity ENTITY_ID --data '{"FIELD_ID": value}' --json` | `{"record": {...}}` |
 | `multipaas records update --entity ENTITY_ID --id RECORD_ID [--data '{...}'] [--clear FIELD_ID,FIELD_ID] --json` | Sets the fields in `--data`, clears those in `--clear`, and keeps the rest |
 | `multipaas records retire --entity ENTITY_ID --id RECORD_ID --json` | Retires the record |
