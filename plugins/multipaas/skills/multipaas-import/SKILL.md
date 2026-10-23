@@ -43,7 +43,9 @@ Write one JSON-lines file per kind into one directory, one JSON object per line,
 | `multipaas import run --app APP_ID --import IMPORT_ID --json` | Writes everything in one go, only after a clean check, waits, and prints the import |
 | `multipaas import status --app APP_ID --import IMPORT_ID --json` | Prints the import |
 
-The import is `{"id", "status", "files": [...], "problemCount", "problems": [{"file", "line", "sourceId", "field", "code", "message"}], "counts": [{"key", "count"}], ...}`. `check` and `run` exit 0 when they finish, whatever the result, so read `status`:
+The import is `{"id", "status", "files": [...], "problemCount", "problems": [{"file", "line", "sourceId", "field", "code", "message"}], "counts": [{"key", "count"}], ...}`. `check` and `run` exit 0 when they finish, whatever the result, so read `status`.
+
+In the table below, `import check`, `import run` and `import status` mean those commands from the table above with the same `--app`, `--import` and `--json`, and `import create --dir` means the create command with the same `--app`, `--dir` and `--json`; it makes a new import, with a new id:
 
 | `status` | Next |
 |---|---|
