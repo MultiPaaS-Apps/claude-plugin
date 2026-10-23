@@ -41,6 +41,7 @@ To read or change an application's model, use the `multipaas-model` skill.
 
 To build an app on an application's API, use the `multipaas-build` skill; for its end users' sign-in, the `multipaas-sign-in` skill.
 To move an app to a newer API version, use the `multipaas-upgrade` skill.
+To load an existing app's data into an application, use the `multipaas-import` skill.
 
 ## Signing in
 
