@@ -14,7 +14,7 @@ An import needs permission to manage the application's access (`access.manage.ap
 
 ## 1. Know the target
 
-1. Find the application: `multipaas apps list --json`. Ask the user which one if more than one fits.
+1. Find the application: `multipaas apps list --json`. Ask the user which one if more than one fits. If none fits, offer to create one, and on a yes run `multipaas apps create --name NAME --json` and use its `application.id`. It needs CLI 0.8.0 or later: check `multipaas --version` first, and if it is older, ask the user to upgrade as above before running it. If it exits 1 with `UNAUTHORIZED`, the user can't create applications in that client: tell them to ask a Client manager in their organization to create it or give them permission. For `CLIENT_REQUIRED`, see the `multipaas` skill. If there is still no application, stop here: the later steps need an `APP_ID`.
 2. Read its model: `multipaas model show --app APP_ID --json`. Every record you import must fit an entity there. If the model is missing an entity or field the old data needs, change the model first with the `multipaas-model` skill.
 
 ## 2. Write the files

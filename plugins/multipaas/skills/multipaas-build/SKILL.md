@@ -10,11 +10,13 @@ The `multipaas` skill covers installing the CLI, signing in and the exit codes. 
 
 These commands need CLI 0.5.0 or later. If `multipaas --version` reports an older version, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
 
+Creating an application (`apps create`) needs CLI 0.8.0 or later. Upgrade the same way.
+
 ## Set up the project
 
 Run these in the app's own directory, which is where `multipaas.json` lives.
 
-1. Find the application: `multipaas apps list --json`. Find an app-tenant to test in: `multipaas tenants list --app APP_ID --json`. Ask the user which one if more than one fits. If the list is `[]`, the application has no app-tenant yet. Offer to create one to test in, and on a yes run `multipaas tenants create --app APP_ID --name NAME --json`. It prints `{"appTenant": {"id", "name"}}`, and its `id` is the `APP_TENANT_ID` for step 2. It needs permission to manage the application. If it exits 1 with `UNAUTHORIZED`, tell the user to ask someone who manages the application.
+1. Find the application: `multipaas apps list --json`. If the list is `[]` or none fits, offer to create one, and on a yes run `multipaas apps create --name NAME --json`. Its `application.id` is the `APP_ID` from here on, and the new application has no app-tenant yet. If it exits 1 with `UNAUTHORIZED`, tell the user to ask a Client manager in their organization to create it or give them permission. For `CLIENT_REQUIRED`, see the `multipaas` skill. If there is still no application, stop here: the later steps need an `APP_ID`. Find an app-tenant to test in: `multipaas tenants list --app APP_ID --json`. Ask the user which one if more than one fits. If the list is `[]`, the application has no app-tenant yet. Offer to create one to test in, and on a yes run `multipaas tenants create --app APP_ID --name NAME --json`. It prints `{"appTenant": {"id", "name"}}`, and its `id` is the `APP_TENANT_ID` for step 2. It needs permission to manage the application. If it exits 1 with `UNAUTHORIZED`, tell the user to ask someone who manages the application.
 2. `multipaas init --app APP_ID --tenant APP_TENANT_ID --json` writes `multipaas.json` and pins the newest API version. It prints:
    `{"config": {"applicationId", "testAppTenantId", "apiVersion", "oauthClientId"?}, "endpoints": {"graphql", "authorize", "token", "revoke"}}`
    Commit `multipaas.json`. Put the endpoints in the app's config. Never write a MultiPaaS host from memory.
