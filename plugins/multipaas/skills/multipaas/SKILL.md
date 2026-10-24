@@ -1,6 +1,6 @@
 ---
 name: multipaas
-description: Sign in to MultiPaaS and look up the signed-in developer, their MultiPaaS applications, and an application's app-tenants, by running the multipaas CLI. Use when the user mentions MultiPaaS, their MultiPaaS apps or tenants, or signing in to MultiPaaS.
+description: Sign in to MultiPaaS, look up the signed-in developer, and list or create their MultiPaaS applications and an application's app-tenants, by running the multipaas CLI. Use when the user mentions MultiPaaS, their MultiPaaS apps or tenants, creating a MultiPaaS app, or signing in to MultiPaaS.
 allowed-tools: Bash(multipaas *)
 ---
 
@@ -32,11 +32,12 @@ The CLI keeps the developer's sign-in to itself. Never read, print or copy its s
 | `multipaas login --json` | `{"user": {"id": "ID", "email": "EMAIL", "name": "NAME"}}`; `name` is `null` when the user has none |
 | `multipaas whoami --json` | The same, without signing in again |
 | `multipaas apps list --json` | `[{"clientId": "ID", "clientName": "NAME", "id": "ID", "name": "NAME"}]` |
+| `multipaas apps create --name NAME --json` | `{"application": {"clientId": "ID", "clientName": "NAME", "id": "ID", "name": "NAME"}}`, the new application, with the user as its App manager. It needs permission to create applications in the client, and CLI 0.8.0 or later: on an older `multipaas --version`, see the `multipaas-build` skill for the upgrade. When the user can reach more than one client, it exits 1 with `CLIENT_REQUIRED` and a message naming each `CLIENT_ID (NAME)`: ask the user which one, then run it again with `--client CLIENT_ID` |
 | `multipaas tenants list --app APP_ID --json` | `[{"id": "ID", "name": "NAME"}]`, the app-tenants of that application |
 | `multipaas tenants create --app APP_ID --name NAME --json` | `{"appTenant": {"id": "ID", "name": "NAME"}}`, the new app-tenant. It needs permission to manage the application, and CLI 0.5.0 or later: on an older `multipaas --version`, see the `multipaas-build` skill for the upgrade |
 | `multipaas logout --json` | `{"signedOut": true}`, or `false` when the user was not signed in. On exit 0 the user is signed out. If the server could not confirm revoking the tokens, it exits 1 with code `REVOKE_FAILED`, and the user is still signed out on this machine |
 
-`APP_ID` is an `id` from `apps list`.
+`APP_ID` is an `id` from `apps list`, or the `application.id` that `apps create` printed.
 To read or change an application's model, use the `multipaas-model` skill.
 
 To build an app on an application's API, use the `multipaas-build` skill; for its end users' sign-in, the `multipaas-sign-in` skill.
@@ -57,6 +58,6 @@ To load an existing app's data into an application, use the `multipaas-import` s
 | Exit | Meaning | What to do |
 |---|---|---|
 | 0 | Done | Use stdout |
-| 1 | Refused or failed. stdout is `{"error": {"code": "CODE", "message": "MESSAGE"}}` | Tell the user the message and code. `REVOKE_FAILED` (from `logout`) means the user is signed out on this machine but the server did not confirm revoking the tokens: tell the user, and don't retry. `INVALID_API_URL` means `MULTIPAAS_API_URL` is set to a value the CLI refuses (it must be an `https` origin on an `api.` host): tell the user, and don't try other values. Any other code except `CLI_ERROR` is MultiPaaS refusing on purpose: don't retry the same command. `CLI_ERROR` is a failure on this machine or the network (offline, a server error, a bad flag): fix the flag if that is the cause, otherwise tell the user and retry once they say the problem is resolved |
+| 1 | Refused or failed. stdout is `{"error": {"code": "CODE", "message": "MESSAGE"}}` | Tell the user the message and code. `REVOKE_FAILED` (from `logout`) means the user is signed out on this machine but the server did not confirm revoking the tokens: tell the user, and don't retry. `INVALID_API_URL` means `MULTIPAAS_API_URL` is set to a value the CLI refuses (it must be an `https` origin on an `api.` host): tell the user, and don't try other values. `CLIENT_REQUIRED` (from `apps create`) means the user can reach more than one client: ask which, then run it again with `--client`. Any other code except `CLI_ERROR` is MultiPaaS refusing on purpose: don't retry the same command. `CLI_ERROR` is a failure on this machine or the network (offline, a server error, a bad flag): fix the flag if that is the cause, otherwise tell the user and retry once they say the problem is resolved |
 | 2 | Not signed in (`NOT_SIGNED_IN`), or `login` was declined or timed out (`SIGN_IN_REFUSED`, `SIGN_IN_TIMEOUT`) | For `NOT_SIGNED_IN`, sign in (above), then run the original command again. For `SIGN_IN_REFUSED` or `SIGN_IN_TIMEOUT`, tell the user and stop: don't run `login` again on your own |
 | 3 | This CLI is too old for MultiPaaS | Ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`, then retry |
