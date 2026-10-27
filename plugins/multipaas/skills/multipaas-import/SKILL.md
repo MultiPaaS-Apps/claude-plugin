@@ -10,6 +10,8 @@ The `multipaas` skill covers installing the CLI, signing in and the exit codes. 
 
 These commands need CLI 0.7.0 or later. If `multipaas --version` reports an older version, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
 
+`import delete` and `import status --include-deleted` need CLI 0.9.0 or later. Upgrade the same way.
+
 An import needs permission to manage the application's access (`access.manage.application`). It writes everything or nothing.
 
 ## 1. Know the target
@@ -41,7 +43,8 @@ Write one JSON-lines file per kind into one directory, one JSON object per line,
 | `multipaas import add --app APP_ID --import IMPORT_ID --kind tenants\|users\|memberships\|records [--entity ENTITY_ID] --file PATH --json` | Adds one file. `records` needs `--entity`, an entity id from `model show` |
 | `multipaas import check --app APP_ID --import IMPORT_ID --json` | Checks every row, waits, and prints the import |
 | `multipaas import run --app APP_ID --import IMPORT_ID --json` | Writes everything in one go, only after a clean check, waits, and prints the import |
-| `multipaas import status --app APP_ID --import IMPORT_ID --json` | Prints the import |
+| `multipaas import status --app APP_ID --import IMPORT_ID [--include-deleted] --json` | Prints the import. A deleted import is `NOT_FOUND` unless `--include-deleted` is given; then it has `deletedAt` set |
+| `multipaas import delete --app APP_ID --import IMPORT_ID --json` | Marks the import deleted and prints it with `deletedAt` set. Its files, its problems and any data it imported stay. Refused with `DATA_IMPORT_STATE` while it is checking or importing |
 
 The import is `{"id", "status", "files": [...], "problemCount", "problems": [{"file", "line", "sourceId", "field", "code", "message"}], "counts": [{"key", "count"}], ...}`. `check` and `run` exit 0 when they finish, whatever the result, so read `status`.
 
@@ -54,6 +57,8 @@ In the table below, `import check`, `import run` and `import status` mean those 
 | `imported` | Done. Tell the user the counts, and that imported users are not emailed: they join their tenants at their next sign-in within 7 days of the run. After that they must be invited |
 | `import-failed` | Nothing was written. Read each problem's `code`. A problem that names a file is a data problem, with or without a line: fix the data or the model, then run `import create --dir` again, because the files of an import that failed can't be changed. With a line, fix that row. `invalid-row` with "The entity for this file no longer exists" has no line: the entity was retired, probably on purpose, so ask the user: either leave that file out and run `import create --dir` again, or declare an entity with that name again with the `multipaas-model` skill (a new entity, which `create --dir` matches by name; declare it so the file's name without `.jsonl` is its name, its type name (`--type-name`) or its plural name (`--plural-name`), and add the fields the rows use with `field add --api-name` set to each key in `fields`) and make a new import. `file-checksum-mismatch` has no line: the stored upload differs from what was registered, so create the import again. `import-error` and `import-timed-out` name no file and leave nothing to fix: run `import check`, then `import run`, again on the same import, and tell the user if it fails again. `import-unauthorized` means the user can no longer manage the application, or lacks read access to records the import refers to: tell them, and don't retry. `application-inactive` means the application was deactivated: tell the user, and don't retry |
 | `checking`, `importing` | Still running. Run `import status` again in a minute; `check` and `run` stop waiting after 20 minutes with `IMPORT_STILL_RUNNING` |
+
+Once a replacement for a `check-failed` or `import-failed` import has been made with `import create --dir`, tell the user the failed one can now be deleted, and on a yes run `import delete` with the failed import's id, not the new one. Deleting only hides it: `import status --include-deleted` still shows it with its files and problems. Don't delete an `imported` import to undo it: the data it wrote stays.
 
 Common problem codes: `invalid-json`, `missing-id`, `missing-field`, `invalid-value`, `unknown-field` (not a GraphQL field name of that entity), `broken-reference` (no row with that old id), `cross-tenant-reference`, `unknown-tenant`, `unknown-user`, `unknown-role`, `duplicate-source-id`, `duplicate-unique-key`, `already-imported` (an earlier import already has that id), `id-too-long`, `id-invalid-character`.
 
@@ -70,9 +75,9 @@ A refused command exits 1 with `{"error": {"code", "message"}}`. Tell the user t
 | `DUPLICATE_DATA_IMPORT_FILE` | The import already has a file of that kind (and entity), or, from `create --dir`, two files in the directory map to the same kind or entity and nothing was created. The message names the files |
 | `INVALID_DATA_IMPORT_FILE` | `--entity` is missing for `records`, given for another kind, or not an entity of this application |
 | `INVALID_FILE_UPLOAD` | The file is empty, over 512 MiB, or its name is too long |
-| `DATA_IMPORT_STATE` | The import can't do that now (for example running before a clean check, or adding a file after a run). Run `import status` |
+| `DATA_IMPORT_STATE` | The import can't do that now (for example running before a clean check, adding a file after a run, or deleting it while it is checking or importing). Run `import status` |
 | `DATA_IMPORT_EMPTY` | The import has no files |
 | `FILE_UPLOAD_NOT_VERIFIED` | An upload did not complete and its file is still on the import, so it cannot be added again. Run `import create --dir` for a new import |
 | `PROBLEM_REPORT_UNAVAILABLE` | The full problem report could not be downloaded. Run `import status` again |
 | `IMPORT_STILL_RUNNING` | Still running after 20 minutes. Run `import status` later |
-| `NOT_FOUND` | No application or import with that id that the user can reach |
+| `NOT_FOUND` | No application or import with that id that the user can reach. A deleted import is `NOT_FOUND` too, unless `import status` is given `--include-deleted` |
