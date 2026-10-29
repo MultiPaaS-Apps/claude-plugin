@@ -48,12 +48,12 @@ What the user says in the session wins for that report. If they tell you not to 
 
 ## Send
 
-Always pass `--via plugin` and `--json`. Pass the details on standard input, so they need no shell quoting:
+Always pass `--via plugin` and `--json`. Put the summary in single quotes, writing each `'` in it as `'\''`. Pass the details on standard input through the quoted heredoc below, so nothing in them is expanded. No line of the details may be exactly the heredoc's end marker:
 
 ```bash
-multipaas feedback send --kind bug --summary "SUMMARY" --via plugin --json --details-file - <<'EOF'
+multipaas feedback send --kind bug --summary 'SUMMARY' --via plugin --json --details-file - <<'MULTIPAAS_FEEDBACK_END'
 DETAILS
-EOF
+MULTIPAAS_FEEDBACK_END
 ```
 
 Add `--app APP_ID` or `--general` when the report isn't about the project's application. On exit 0 it prints `{"feedback": {"id", "kind", "status", "summary", "details", "source", ...}}` with `status` `received` and `source` `plugin`. Tell the user the `id`.
