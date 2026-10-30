@@ -14,11 +14,13 @@ Creating an application (`apps create`) needs CLI 0.8.0 or later. Upgrade the sa
 
 `records --app-wide` needs CLI 0.10.0 or later. Upgrade the same way.
 
+`envs` and `--env` need CLI 0.11.0 or later. Upgrade the same way.
+
 ## Set up the project
 
 Run these in the app's own directory, which is where `multipaas.json` lives.
 
-1. Find the application: `multipaas apps list --json`. If the list is `[]` or none fits, offer to create one, and on a yes run `multipaas apps create --name NAME --json`. Its `application.id` is the `APP_ID` from here on, and the new application has no app-tenant yet. If it exits 1 with `UNAUTHORIZED`, tell the user to ask a Client manager in their organization to create it or give them permission. For `CLIENT_REQUIRED`, see the `multipaas` skill. If there is still no application, stop here: the later steps need an `APP_ID`. Find an app-tenant to test in: `multipaas tenants list --app APP_ID --json`. Ask the user which one if more than one fits. If the list is `[]`, the application has no app-tenant yet. Offer to create one to test in, and on a yes run `multipaas tenants create --app APP_ID --name NAME --json`. It prints `{"appTenant": {"id", "name"}}`, and its `id` is the `APP_TENANT_ID` for step 2. It needs permission to manage the application. If it exits 1 with `UNAUTHORIZED`, tell the user to ask someone who manages the application.
+1. Find the application: `multipaas apps list --json`. If the list is `[]` or none fits, offer to create one, and on a yes run `multipaas apps create --name NAME --json`. Its `application.id` is the `APP_ID` from here on, and the new application has no app-tenant yet. If it exits 1 with `UNAUTHORIZED`, tell the user to ask a Client manager in their organization to create it or give them permission. For `CLIENT_REQUIRED`, see the `multipaas` skill. If there is still no application, stop here: the later steps need an `APP_ID`. Pick an environment to test in: `multipaas envs list --app APP_ID --json`. Each environment keeps its own app-tenants and app-wide records. Recommend a non-default environment for test data, and when only the default exists, offer to create one with `multipaas envs create --app APP_ID --name test --json`, whose `environment.id` is the `ENV_ID` from here on. It needs permission to manage the application. If it exits 1 with `UNAUTHORIZED`, tell the user to ask someone who manages the application. Find an app-tenant to test in: `multipaas tenants list --app APP_ID --env ENV_ID --json`. Ask the user which one if more than one fits. If the list is `[]`, that environment has no app-tenant yet. Offer to create one to test in, and on a yes run `multipaas tenants create --app APP_ID --env ENV_ID --name NAME --json`. It prints `{"appTenant": {"id", "name"}}`, and its `id` is the `APP_TENANT_ID` for step 2. It needs permission to manage the application. If it exits 1 with `UNAUTHORIZED`, tell the user to ask someone who manages the application.
 2. `multipaas init --app APP_ID --tenant APP_TENANT_ID --json` writes `multipaas.json` and pins the newest API version. It prints:
    `{"config": {"applicationId", "testAppTenantId", "apiVersion", "oauthClientId"?}, "endpoints": {"graphql", "authorize", "token", "revoke"}}`
    Commit `multipaas.json`. Put the endpoints in the app's config. Never write a MultiPaaS host from memory.
@@ -78,7 +80,9 @@ The `records` commands read and write the test app-tenant's records, or with `--
 | `multipaas records retire --entity ENTITY_ID --id RECORD_ID --json` | Retires the record |
 | `multipaas records list --app-wide --entity ENTITY_ID --json` | The application's app-wide records. Add `--app-wide` to any command above, and `create`, `get`, `update` and `retire` act on app-wide records too. It replaces the default test app-tenant, and the CLI refuses it together with `--tenant`; each record carries `"appWide"` |
 
-Without `--app-wide`, `records list` returns only the test app-tenant's own records. An app-wide record is visible to every app-tenant whose roles allow `record.app_wide.view`.
+Without `--app-wide`, `records list` returns only the test app-tenant's own records. An app-wide record is visible to every app-tenant in its environment whose roles allow `record.app_wide.view`.
+
+App-wide records belong to the environment the command runs in. `records --app-wide` acts in the application's default environment unless it is given `--env ENV_ID`. `records` takes `--env` only with `--app-wide`; the CLI refuses it together with `--tenant`, because a tenant already belongs to one environment. The `--env` must be one of `--app`'s environments. An app-wide token (a job's) always works in the default environment.
 
 ## When MultiPaaS refuses
 
