@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v0.7.0...v0.8.0) (2026-10-30)
+
+
+### Features
+
+* [MP-198] build skill covers background jobs and app-wide data ([#22](https://github.com/MultiPaaS-Apps/claude-plugin/issues/22)) ([0fc16a7](https://github.com/MultiPaaS-Apps/claude-plugin/commit/0fc16a7a9c94ce5c52564d4d21dafb23be21b303))
+
 ## [0.7.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v0.6.0...v0.7.0) (2026-10-29)
 
 
