@@ -52,6 +52,8 @@ A job that runs without an end user, such as one that fills a shared word list, 
    printf 'user = "%s:%s"\n' "$CLIENT_ID" "$CLIENT_SECRET" | curl -s -K - -X POST "$TOKEN_ENDPOINT" -d grant_type=client_credentials -d app_tenant="$APP_TENANT_ID"
    ```
 
+   That asks for one app-tenant's token. For an app-wide token, drop `-d app_tenant="$APP_TENANT_ID"`.
+
    In the job's own code, send the secret from its HTTP client (Basic auth or the request body), never through a shell command line.
 
    Without `app_tenant`, an identity that holds no role across the application is refused with `invalid_target`.
