@@ -46,11 +46,13 @@ A job that runs without an end user, such as one that fills a shared word list, 
 
 1. Create one: `multipaas app-identity create --name "JOB NAME" --json`. Its secret is shown once. Store it as a secret in the job's environment, never in the repo.
 2. Give it roles on its own page in the web app, which has a Roles section for the whole application and for each app-tenant. A role held across the application is needed for app-wide data, and writing app-wide records needs a role with `record.app_wide.create` or `record.app_wide.edit` on the entity. Reading or writing one app-tenant's data needs a role at that app-tenant or across the application.
-3. Get a token: `POST` to `endpoints.token` from `multipaas init --json` with `grant_type=client_credentials`, `client_id`, and `client_secret` (or HTTP Basic instead of `client_secret`, not both), plus `app_tenant=APP_TENANT_ID` for one app-tenant's data, or no `app_tenant` for the application's app-wide data. The answer has `access_token` and `expires_in` and no refresh token, so ask again when it expires.
+3. Get a token: `POST` to `endpoints.token` from `multipaas init --json` with `grant_type=client_credentials`, identifying the client either by the form fields `client_id` and `client_secret` or by HTTP Basic carrying the id and secret together, not both, plus `app_tenant=APP_TENANT_ID` for one app-tenant's data, or no `app_tenant` for the application's app-wide data. The answer has `access_token` and `expires_in` and no refresh token, so ask again when it expires.
 
    ```
-   curl -s -X POST "$TOKEN_ENDPOINT" -d grant_type=client_credentials -d client_id="$CLIENT_ID" -d client_secret="$CLIENT_SECRET" -d app_tenant="$APP_TENANT_ID"
+   printf 'user = "%s:%s"\n' "$CLIENT_ID" "$CLIENT_SECRET" | curl -s -K - -X POST "$TOKEN_ENDPOINT" -d grant_type=client_credentials -d app_tenant="$APP_TENANT_ID"
    ```
+
+   In the job's own code, send the secret from its HTTP client (Basic auth or the request body), never through a shell command line.
 
    Without `app_tenant`, an identity that holds no role across the application is refused with `invalid_target`.
 4. Call the generated API as in the section above, with that token. The scope follows the token. A tenantless token reads and writes only app-wide records, and it needs an API version built after app-wide records shipped: an older one answers `403 insufficient_scope`. An app-tenant token writes that app-tenant's records, and reads them plus the app-wide records its roles let it view.
