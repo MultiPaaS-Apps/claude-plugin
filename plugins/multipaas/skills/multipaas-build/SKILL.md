@@ -44,8 +44,8 @@ In this directory, `--app` defaults to the application in `multipaas.json`, and 
 
 A job that runs without an end user, such as one that fills a shared word list, signs in as an **app identity**: the app's own identity, which holds roles like a person does.
 
-1. Create one: `multipaas app-identity create --name "JOB NAME" --json`. Its secret is shown once. Store it as a secret in the job's environment, never in the repo.
-2. Give it roles on its own page in the web app, which has a Roles section for the whole application and for each app-tenant. A role held across the application is needed for app-wide data, and writing app-wide records needs a role with `record.app_wide.create` or `record.app_wide.edit` on the entity. Reading or writing one app-tenant's data needs a role at that app-tenant or across the application.
+1. Create one: `multipaas app-identity create --name "JOB NAME" --json`. It prints `{"appIdentity": {"id", …}, "secret"}`: `appIdentity.id` is the `CLIENT_ID` and `secret` is the `CLIENT_SECRET`. The secret is shown once. Store it as a secret in the job's environment, never in the repo.
+2. Give it roles on its own page in the web app, which has a Roles section for the whole application and for each app-tenant. An app-wide token (step 3) needs a role held across the application. An app-tenant token reads app-wide records with a role allowing `record.app_wide.view` at that app-tenant. Writing app-wide records takes an app-wide token and a role held across the application with `record.app_wide.create` or `record.app_wide.edit` on the entity; given at an app-tenant, those permissions grant nothing. Reading or writing one app-tenant's data needs a role at that app-tenant or across the application.
 3. Get a token: `POST` to `endpoints.token` from `multipaas init --json` with `grant_type=client_credentials`, identifying the client either by the form fields `client_id` and `client_secret` or by HTTP Basic carrying the id and secret together, not both, plus `app_tenant=APP_TENANT_ID` for one app-tenant's data, or no `app_tenant` for the application's app-wide data. The answer has `access_token` and `expires_in` and no refresh token, so ask again when it expires.
 
    ```
@@ -56,9 +56,9 @@ A job that runs without an end user, such as one that fills a shared word list, 
 
    In the job's own code, send the secret from its HTTP client (Basic auth or the request body), never through a shell command line.
 
-   Without `app_tenant`, an identity that holds no role across the application is refused with `invalid_target`.
+   `invalid_target` means the identity can't act in the scope asked for. Without `app_tenant`: it holds no role across the application. With `app_tenant`: it holds no role at that app-tenant or across the application, or the id isn't an active app-tenant of this application.
 4. Call the generated API as in the section above, with that token. The scope follows the token. A tenantless token reads and writes only app-wide records, and it needs an API version built after app-wide records shipped: an older one answers `403 insufficient_scope`. An app-tenant token writes that app-tenant's records, and reads them plus the app-wide records its roles let it view.
-5. Rotate the secret: `multipaas app-identity secret add CLIENT_ID --json`, deploy the new one, then `multipaas app-identity secret revoke SECRET_ID --json` for the old one.
+5. Rotate the secret: `multipaas app-identity secret add CLIENT_ID --json`, deploy the new one, then revoke the old one: find its `id` in `multipaas app-identity secret list CLIENT_ID --json` (under `secrets`, told apart by `lastFour` or `createdAt`) and run `multipaas app-identity secret revoke SECRET_ID --json` with it.
 
 ## Moving to a newer API version
 
