@@ -74,7 +74,7 @@ The `records` commands read and write the test app-tenant's records, or with `--
 | `multipaas records create --entity ENTITY_ID --data '{"FIELD_ID": value}' --json` | `{"record": {...}}` |
 | `multipaas records update --entity ENTITY_ID --id RECORD_ID [--data '{...}'] [--clear FIELD_ID,FIELD_ID] --json` | Sets the fields in `--data`, clears those in `--clear`, and keeps the rest |
 | `multipaas records retire --entity ENTITY_ID --id RECORD_ID --json` | Retires the record |
-| `multipaas records list --app-wide --entity ENTITY_ID --json` | The application's app-wide records. Every command above takes `--app-wide` in place of `--tenant`, so `create`, `get`, `update` and `retire` act on app-wide records too; each record carries `"appWide"` |
+| `multipaas records list --app-wide --entity ENTITY_ID --json` | The application's app-wide records. Add `--app-wide` to any command above, and `create`, `get`, `update` and `retire` act on app-wide records too. It replaces the default test app-tenant, and the CLI refuses it together with `--tenant`; each record carries `"appWide"` |
 
 Without `--app-wide`, `records list` returns only the test app-tenant's own records. An app-wide record is visible to every app-tenant whose roles allow `record.app_wide.view`.
 
