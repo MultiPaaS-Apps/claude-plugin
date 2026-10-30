@@ -21,7 +21,7 @@ These commands need CLI 0.3.0 or later, and the `application.manage_oauth` permi
 - A redirect URI must be `https`, or `http` on `localhost` or `127.0.0.1`.
 - A client takes 1 to 10 redirect URIs.
 - Register the URL the app actually receives the callback at, such as the dev server's, and the deployed one.
-- A client is public: it has no secret, so never invent one.
+- A client registered here is public: it has no secret, so never invent one. A background job uses an app identity's confidential client instead (see `multipaas-build`).
 
 ## The flow
 
