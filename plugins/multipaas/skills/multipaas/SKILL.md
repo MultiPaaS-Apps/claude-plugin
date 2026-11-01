@@ -43,7 +43,9 @@ The CLI keeps the developer's sign-in to itself. Never read, print or copy its s
 | `multipaas tenants list --app APP_ID --json` | `[{"id": "ID", "name": "NAME"}]`, the app-tenants of that application |
 | `multipaas tenants create --app APP_ID --name NAME --json` | `{"appTenant": {"id": "ID", "name": "NAME"}}`, the new app-tenant. It needs permission to manage the application, and CLI 0.5.0 or later: on an older `multipaas --version`, see the `multipaas-build` skill for the upgrade |
 | `multipaas logout --json` | `{"signedOut": true, "profile": "PROFILE"}`; `signedOut` is `false` when the user was not signed in, and `profile` is `null` for the unnamed sign-in. It signs out of the chosen profile only. On exit 0 the user is signed out. If the server could not confirm revoking the tokens, it exits 1 with code `REVOKE_FAILED`, and the user is still signed out on this machine |
-
+| `multipaas envs list --app APP_ID --json` | `[{"id": "ID", "name": "NAME", "isDefault": true, "deletionProtected": true}]`, the application's environments. An environment keeps its own app-tenants, app-wide records and imports; the model is shared. Needs CLI 0.11.0 or later: on an older `multipaas --version`, see the `multipaas-build` skill for the upgrade |
+| `multipaas envs create --app APP_ID --name NAME --json` | `{"environment": {"id": "ID", "name": "NAME", "isDefault": false, "deletionProtected": false}}`, the new environment, with the user as its App manager. It needs permission to manage the application, and CLI 0.11.0 or later |
+| `multipaas envs rename --app APP_ID --env ENV_ID --name NAME --json` | `{"environment": {"id": "ID", "name": "NAME", "isDefault": false, "deletionProtected": false}}`, the environment under its new name. It needs permission to manage the application, and CLI 0.11.0 or later |
 `APP_ID` is an `id` from `apps list`, or the `application.id` that `apps create` printed.
 To read or change an application's model, use the `multipaas-model` skill.
 
