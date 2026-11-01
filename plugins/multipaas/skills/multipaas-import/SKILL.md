@@ -8,7 +8,7 @@ allowed-tools: Bash(multipaas *)
 
 The `multipaas` skill covers installing the CLI, signing in and the exit codes. Follow it for those. This skill is for the import commands.
 
-These commands need CLI 0.7.0 or later. If `multipaas --version` reports an older version, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
+These commands need CLI 0.7.0 or later. If `multipaas --version` reports an older version, ask the user to run `brew update`, then, as a separate command, `brew upgrade multipaas`.
 
 `import delete` and `import status --include-deleted` need CLI 0.9.0 or later. Upgrade the same way.
 

@@ -8,7 +8,7 @@ allowed-tools: Bash(multipaas *)
 
 The `multipaas` skill covers installing the CLI, signing in and the exit codes. This skill sends MultiPaaS a report when MultiPaaS itself is in the user's way, so the problem reaches the people who can fix it instead of being worked around in silence.
 
-This needs CLI 0.9.0 or later. If `multipaas --version` reports an older version, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
+This needs CLI 0.9.0 or later. If `multipaas --version` reports an older version, ask the user to run `brew update`, then, as a separate command, `brew upgrade multipaas`.
 
 ## When to report
 
