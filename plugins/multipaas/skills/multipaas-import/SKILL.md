@@ -12,7 +12,7 @@ These commands need CLI 0.7.0 or later. If `multipaas --version` reports an olde
 
 `import delete` and `import status --include-deleted` need CLI 0.9.0 or later. Upgrade the same way.
 
-`--env` on the import commands needs CLI 0.11.0 or later. Upgrade the same way.
+`--env` on the import commands needs CLI 0.12.0 or later. Upgrade the same way.
 
 Every import command takes `--env ENV_ID`, an `id` from `multipaas envs list --app APP_ID --json`. An import belongs to one environment and writes its app-tenants and records there; without `--env` it uses the application's default environment. Import test data into a non-default environment first (`multipaas envs create --app APP_ID --name test --json` makes one), and give every command for that import the same `--env`.
 
