@@ -12,11 +12,10 @@ Always pass `--json`. With it, every command prints exactly one JSON document on
 
 ## Install
 
-Run `multipaas --version`. If the command is missing, ask the user to install it. While MultiPaaS is in private preview, this needs their GitHub access. Tapping clones a private git repository, so git needs their credentials first: `gh auth login`, then `gh auth setup-git` (or tap over SSH, as [the tap's README](https://github.com/MultiPaaS-Apps/homebrew-tap) describes). Then:
+Run `multipaas --version`. If the command is missing, ask the user to install it. Then:
 
 ```bash
-brew tap multipaas-apps/tap
-HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew install multipaas-apps/tap/multipaas
+brew install multipaas-apps/tap/multipaas
 ```
 
 ## Which MultiPaaS
@@ -69,4 +68,4 @@ To report a MultiPaaS bug or missing capability to MultiPaaS, or to follow up on
 | 0 | Done | Use stdout |
 | 1 | Refused or failed. stdout is `{"error": {"code": "CODE", "message": "MESSAGE"}}` | Tell the user the message and code. `REVOKE_FAILED` (from `logout`) means the user is signed out on this machine but the server did not confirm revoking the tokens: tell the user, and don't retry. `INVALID_API_URL` means `MULTIPAAS_API_URL` is set to a value the CLI refuses (it must be an `https` origin on an `api.` host): tell the user, and don't try other values. `INVALID_PROFILE` means `--profile` or `MULTIPAAS_PROFILE` names a profile the CLI refuses: tell the user, and don't try other names. `CLIENT_REQUIRED` (from `apps create`) means the user can reach more than one client: ask which, then run it again with `--client`. Any other code except `CLI_ERROR` is MultiPaaS refusing on purpose: don't retry the same command. `CLI_ERROR` is a failure on this machine or the network (offline, a server error, a bad flag): fix the flag if that is the cause, otherwise tell the user and retry once they say the problem is resolved |
 | 2 | Not signed in (`NOT_SIGNED_IN`), or `login` was declined or timed out (`SIGN_IN_REFUSED`, `SIGN_IN_TIMEOUT`) | For `NOT_SIGNED_IN`, sign in as the message says, adding `--json` (see "Which sign-in"), then run the original command again. For `SIGN_IN_REFUSED` or `SIGN_IN_TIMEOUT`, tell the user and stop: don't run `login` again on your own |
-| 3 | This CLI is too old for MultiPaaS | Ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`, then retry |
+| 3 | This CLI is too old for MultiPaaS | Ask the user to run `brew update`, then, as a separate command, `brew upgrade multipaas`, then retry |

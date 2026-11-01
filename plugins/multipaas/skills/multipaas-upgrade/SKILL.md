@@ -8,7 +8,7 @@ allowed-tools: Bash(multipaas *)
 
 The `multipaas-build` skill sets up the project and covers calling the generated API. This skill moves an app that is already pinned. The app keeps working on its pin, so never move it unless the user asks.
 
-This needs CLI 0.4.0 or later. If `multipaas --version` reports an older version, ask the user to run `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew update`, then, as a separate command, `HOMEBREW_GITHUB_API_TOKEN="$(gh auth token)" brew upgrade multipaas`.
+This needs CLI 0.4.0 or later. If `multipaas --version` reports an older version, ask the user to run `brew update`, then, as a separate command, `brew upgrade multipaas`.
 
 ## See what changed
 
