@@ -59,7 +59,7 @@ A change MultiPaaS refuses exits 1 with `{"error": {"code", "message"}}` and a c
 
 | Code | Meaning |
 |---|---|
-| `UNAUTHORIZED` | The user may not change this application's model: they lack `model.edit` on the application. Making a field a parent, or changing what a parent field references (its `--references`, or a `--type` that is not `reference`), also needs `access.manage.application`: `field add --parent`, and any `field update` that leaves the field a parent while giving it a new parent link. Both are the same as in the web app. Only someone who manages the application's access can grant it |
+| `UNAUTHORIZED` | The user may not change this application's model: they lack `model.edit` on the application. Making a field a parent, or changing what a parent field references (its `--references`, or a `--type` that is not `reference`), also needs `access.manage.application`: `field add --parent`, and any `field update` that leaves the field a parent while giving it a new parent link. Both are the same as in the web app. The CLI checks `model.edit` and `access.manage.application` in the default environment. Only someone who manages the application's access can grant it |
 | `NOT_FOUND` | No application with that id that the user can reach, or no entity, field or constraint with the id given to `--id` |
 | `ENTITY_NOT_FOUND` | `--entity` or `--references` names no entity in this application |
 | `MODEL_GENERATION_FAILED` | The platform could not generate the API for the changed model, so the change was not made. Tell the user the message |
