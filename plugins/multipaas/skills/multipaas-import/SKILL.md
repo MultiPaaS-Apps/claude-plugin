@@ -12,6 +12,10 @@ These commands need CLI 0.7.0 or later. If `multipaas --version` reports an olde
 
 `import delete` and `import status --include-deleted` need CLI 0.9.0 or later. Upgrade the same way.
 
+`--env` on the import commands needs CLI 0.12.0 or later. Upgrade the same way.
+
+Every import command takes `--env ENV_ID`, an `id` from `multipaas envs list --app APP_ID --json`. An import belongs to one environment and writes its app-tenants and records there; without `--env` it uses the application's default environment. Import test data into a non-default environment first (`multipaas envs create --app APP_ID --name test --json` makes one), and give every command for that import the same `--env`.
+
 An import needs permission to manage the application's access (`access.manage.application`). It writes everything or nothing.
 
 ## 1. Know the target
@@ -39,12 +43,12 @@ Write one JSON-lines file per kind into one directory, one JSON object per line,
 
 | Command | Does |
 |---|---|
-| `multipaas import create --app APP_ID --dir DIR --json` | Creates an import and uploads every `.jsonl` in `DIR`. Prints `{"import": {...}}` with its `id`. If any file can't be mapped or used, nothing is created; see the refusal table below |
-| `multipaas import add --app APP_ID --import IMPORT_ID --kind tenants\|users\|memberships\|records [--entity ENTITY_ID] --file PATH --json` | Adds one file. `records` needs `--entity`, an entity id from `model show` |
-| `multipaas import check --app APP_ID --import IMPORT_ID --json` | Checks every row, waits, and prints the import |
-| `multipaas import run --app APP_ID --import IMPORT_ID --json` | Writes everything in one go, only after a clean check, waits, and prints the import |
-| `multipaas import status --app APP_ID --import IMPORT_ID [--include-deleted] --json` | Prints the import. A deleted import is `NOT_FOUND` unless `--include-deleted` is given; then it has `deletedAt` set |
-| `multipaas import delete --app APP_ID --import IMPORT_ID --json` | Marks the import deleted and prints it with `deletedAt` set. Its files, its problems and any data it imported stay. Refused with `DATA_IMPORT_STATE` while it is checking or importing |
+| `multipaas import create --app APP_ID [--env ENV_ID] --dir DIR --json` | Creates an import and uploads every `.jsonl` in `DIR`. Prints `{"import": {...}}` with its `id`. If any file can't be mapped or used, nothing is created; see the refusal table below |
+| `multipaas import add --app APP_ID [--env ENV_ID] --import IMPORT_ID --kind tenants\|users\|memberships\|records [--entity ENTITY_ID] --file PATH --json` | Adds one file. `records` needs `--entity`, an entity id from `model show` |
+| `multipaas import check --app APP_ID [--env ENV_ID] --import IMPORT_ID --json` | Checks every row, waits, and prints the import |
+| `multipaas import run --app APP_ID [--env ENV_ID] --import IMPORT_ID --json` | Writes everything in one go, only after a clean check, waits, and prints the import |
+| `multipaas import status --app APP_ID [--env ENV_ID] --import IMPORT_ID [--include-deleted] --json` | Prints the import. A deleted import is `NOT_FOUND` unless `--include-deleted` is given; then it has `deletedAt` set |
+| `multipaas import delete --app APP_ID [--env ENV_ID] --import IMPORT_ID --json` | Marks the import deleted and prints it with `deletedAt` set. Its files, its problems and any data it imported stay. Refused with `DATA_IMPORT_STATE` while it is checking or importing |
 
 The import is `{"id", "status", "files": [...], "problemCount", "problems": [{"file", "line", "sourceId", "field", "code", "message"}], "counts": [{"key", "count"}], ...}`. `check` and `run` exit 0 when they finish, whatever the result, so read `status`.
 
