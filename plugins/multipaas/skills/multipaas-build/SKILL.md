@@ -18,7 +18,7 @@ Creating an application (`apps create`) needs CLI 0.8.0 or later. Upgrade the sa
 
 `roles` and `app-identity role` need CLI 0.11.0 or later, and so does `--role` taking a role's id. Check `multipaas --version` first, and if it is older, ask the user to upgrade as above.
 
-`envs` and `--env` need CLI 0.12.0 or later. Upgrade the same way.
+`envs` and `--env` need CLI 0.13.0 or later. Upgrade the same way.
 
 ## Set up the project
 
