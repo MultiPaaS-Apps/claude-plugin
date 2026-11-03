@@ -21,6 +21,8 @@ Run this in the app's directory, where `multipaas.json` lives.
 - **dangerous:** a change that keeps the app's requests valid but can change what they do, for example a new optional input field or a changed default.
 - **added:** new types and fields. They don't affect requests the app already sends. These are what the app can now use.
 
+When **dangerous** includes an optional argument `where` or `orderBy` added to a list field, or **added** includes `totalCount` on a page type, search the app for code that fetches every page and then filters, sorts or counts in the app, and offer to move it into the query.
+
 A renamed field shows up as its old name removed (**breaking**) and its new name added. It can land in all three lists: on its type, on the create and update inputs that set it, and, when the field can be cleared, on the `<Entity>Field` enum that the update input's `clear` list uses. Rename it in the app's code.
 
 Tell the user what would break in their app, by naming the places in their code, then what to watch, then what's new. When all three lists are empty, no change graphql-js reports affects the app's existing requests, so there is nothing to change in the app.
