@@ -20,6 +20,8 @@ Creating an application (`apps create`) needs CLI 0.8.0 or later. Upgrade the sa
 
 `envs` and `--env` need CLI 0.13.0 or later. Upgrade the same way.
 
+`records list --where`, `--order-by` and `--count` need CLI 1.1.0 or later. Upgrade the same way.
+
 ## Set up the project
 
 Run these in the app's own directory, which is where `multipaas.json` lives.
@@ -84,12 +86,16 @@ The `records` commands read and write the test app-tenant's records, or with `--
 | Command | Does |
 |---|---|
 | `multipaas records list --entity ENTITY_ID --json` | `[{"id", "appWide", "data", "createdAt", "updatedAt"}]`, newest first |
+| `multipaas records list --entity ENTITY_ID --where '{"FIELD_ID": {"lte": 5}}' --order-by FIELD_ID:desc --json` | (CLI 1.1.0 or later) The records meeting every condition in `--where`, in that order. `--order-by` takes `createdAt`, `updatedAt` or a field id, ascending unless it ends `:desc`; a reference or related field, or an enum field whose enum no longer exists, is refused with a `VALIDATION` error naming it. Without it the list is newest first |
+| `multipaas records list --entity ENTITY_ID [--where '{...}'] --count --json` | (CLI 1.1.0 or later) `{"count": N}`: how many records match, without listing them |
 | `multipaas records get --entity ENTITY_ID --id RECORD_ID --json` | `{"record": {"id", "appWide", "data", "createdAt", "updatedAt"}}`; a record that doesn't exist is a refusal |
 | `multipaas records list --entity ENTITY_ID --parent-field FIELD_ID --parent-record RECORD_ID --json` | The child records of that parent, newest first: the records whose parent reference field (`isParent` in `model show`) holds `--parent-record`. Give both flags or neither |
 | `multipaas records create --entity ENTITY_ID --data '{"FIELD_ID": value}' --json` | `{"record": {...}}` |
 | `multipaas records update --entity ENTITY_ID --id RECORD_ID [--data '{...}'] [--clear FIELD_ID,FIELD_ID] --json` | Sets the fields in `--data`, clears those in `--clear`, and keeps the rest |
 | `multipaas records retire --entity ENTITY_ID --id RECORD_ID --json` | Retires the record |
 | `multipaas records list --app-wide [--env ENV_ID] --entity ENTITY_ID --json` | The application's app-wide records. Add `--app-wide` to any command above, and `create`, `get`, `update` and `retire` act on app-wide records too. It replaces the default test app-tenant, and the CLI refuses it together with `--tenant`; each record carries `"appWide"` |
+
+`--where` is a JSON object keyed by field id, or `id`, `createdAt` or `updatedAt`, each holding operators: the same conditions the app's generated API takes. Text takes `eq`, `in`, `contains`, `startsWith`, `endsWith` and `isNull`. Numbers and timestamps take `eq`, `lt`, `lte`, `gt`, `gte` and `isNull`. Booleans take `eq` and `isNull`. Enums and references take `eq`, `in`, `notIn` and `isNull`, and `id` takes `eq`, `in` and `notIn`. Values take the field's type: text and enum values are strings (an enum value must be one of the enum's values), numbers are numbers, booleans are true or false, timestamps are ISO 8601 strings, and references and `id` take record ids; `in` and `notIn` take a list, and `isNull` takes true or false. `contains`, `startsWith` and `endsWith` ignore case. A wrong field, operator or value is refused with a `VALIDATION` error naming the field.
 
 Without `--app-wide`, `records list` returns only the test app-tenant's own records. An app-wide record is visible to every app-tenant in its environment whose roles allow `record.app_wide.view`.
 
