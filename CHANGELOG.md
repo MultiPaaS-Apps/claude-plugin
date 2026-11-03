@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.0.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v0.7.0...v1.0.0) (2026-11-03)
+
+
+### Features
+
+* [MP-198] build skill covers background jobs and app-wide data ([#22](https://github.com/MultiPaaS-Apps/claude-plugin/issues/22)) ([0fc16a7](https://github.com/MultiPaaS-Apps/claude-plugin/commit/0fc16a7a9c94ce5c52564d4d21dafb23be21b303))
+* [MP-212] teach the multipaas skill about named profiles ([#24](https://github.com/MultiPaaS-Apps/claude-plugin/issues/24)) ([2c7be43](https://github.com/MultiPaaS-Apps/claude-plugin/commit/2c7be4365b036806d493118ed85885ff3f43389c))
+* [MP-222] build skill says what an app identity's token can't do ([#32](https://github.com/MultiPaaS-Apps/claude-plugin/issues/32)) ([53645b8](https://github.com/MultiPaaS-Apps/claude-plugin/commit/53645b84e91e4e2974b7e31a711ab1dea805e68f))
+* [MP-223] skills declare and give roles with the CLI ([#29](https://github.com/MultiPaaS-Apps/claude-plugin/issues/29)) ([16119c0](https://github.com/MultiPaaS-Apps/claude-plugin/commit/16119c0fe0deaa4231d612d371ae725ef0c9111e))
+* [MP-234] multipaas skills describe environments ([#27](https://github.com/MultiPaaS-Apps/claude-plugin/issues/27)) ([adbd260](https://github.com/MultiPaaS-Apps/claude-plugin/commit/adbd2608be709f04a7e71a557befff0a0f9e42da))
+* [MP-242] document app-wide import lines ([#34](https://github.com/MultiPaaS-Apps/claude-plugin/issues/34)) ([b1ea88e](https://github.com/MultiPaaS-Apps/claude-plugin/commit/b1ea88e1987cc5a925dd98753cb5a15d7a1e2f6a))
+
+
+### Bug Fixes
+
+* [MP-211] install the CLI without GitHub access ([#28](https://github.com/MultiPaaS-Apps/claude-plugin/issues/28)) ([b75a884](https://github.com/MultiPaaS-Apps/claude-plugin/commit/b75a884f5b03df42cdba8b4319aa5e0c46eb21cb))
+* [MP-220] say who can read which records in the skills ([#31](https://github.com/MultiPaaS-Apps/claude-plugin/issues/31)) ([1c2e1f1](https://github.com/MultiPaaS-Apps/claude-plugin/commit/1c2e1f144be9ab7b1dd37b062dfc505c59f254d9))
+* [MP-221] skills say a record has no file field yet ([#33](https://github.com/MultiPaaS-Apps/claude-plugin/issues/33)) ([0f76662](https://github.com/MultiPaaS-Apps/claude-plugin/commit/0f7666246f4cea26394812254d5817b49eebc659))
+* [MP-234] skills say envs and --env need CLI 0.13.0 ([#35](https://github.com/MultiPaaS-Apps/claude-plugin/issues/35)) ([de1771b](https://github.com/MultiPaaS-Apps/claude-plugin/commit/de1771b4ff39962c2ce5ee378a49dafdb0cfddd1))
+* [MP-238] retry or report an import-error by its message ([#30](https://github.com/MultiPaaS-Apps/claude-plugin/issues/30)) ([0ced6e7](https://github.com/MultiPaaS-Apps/claude-plugin/commit/0ced6e7fc04b6fc1dddf00ae38878eb6c5234156))
+
+
+### Miscellaneous Chores
+
+* [MP-257] release 1.0.0 ([#36](https://github.com/MultiPaaS-Apps/claude-plugin/issues/36)) ([bf1e4ed](https://github.com/MultiPaaS-Apps/claude-plugin/commit/bf1e4ed86ad7d1aace5a40beff43a9876e1808c9))
+
 ## [0.7.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v0.6.0...v0.7.0) (2026-10-29)
 
 
