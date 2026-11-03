@@ -87,7 +87,7 @@ The `records` commands read and write the test app-tenant's records, or with `--
 |---|---|
 | `multipaas records list --entity ENTITY_ID --json` | `[{"id", "appWide", "data", "createdAt", "updatedAt"}]`, newest first |
 | `multipaas records list --entity ENTITY_ID --where '{"FIELD_ID": {"lte": 5}}' --order-by FIELD_ID:desc --json` | (CLI 1.1.0 or later) The records meeting every condition in `--where`, in that order. `--order-by` takes `createdAt`, `updatedAt` or a field id, ascending unless it ends `:desc`; a reference or related field, or an enum field whose enum no longer exists, is refused with a `VALIDATION` error naming it. Without it the list is newest first |
-| `multipaas records list --entity ENTITY_ID [--where '{...}'] --count --json` | (CLI 1.1.0 or later) `{"count": N}`: how many records match, without listing them |
+| `multipaas records list --entity ENTITY_ID [--where '{...}'] --count --json` | (CLI 1.1.0 or later) `{"count": N}`: how many records match, without listing them. The CLI refuses it together with `--order-by` |
 | `multipaas records get --entity ENTITY_ID --id RECORD_ID --json` | `{"record": {"id", "appWide", "data", "createdAt", "updatedAt"}}`; a record that doesn't exist is a refusal |
 | `multipaas records list --entity ENTITY_ID --parent-field FIELD_ID --parent-record RECORD_ID --json` | The child records of that parent, newest first: the records whose parent reference field (`isParent` in `model show`) holds `--parent-record`. Give both flags or neither |
 | `multipaas records create --entity ENTITY_ID --data '{"FIELD_ID": value}' --json` | `{"record": {...}}` |
