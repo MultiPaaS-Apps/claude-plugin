@@ -34,7 +34,7 @@ All take `--app APP_ID --json`. On exit 0, a change prints `{"entity" | "enumTyp
 | `multipaas enum update --id ENUM_ID [--name] [--type-name] [--values a,b=API_NAME]` | Change an enum. `--values` takes the same `VALUE` or `VALUE=API_NAME` form and replaces the whole list, so a value not given is removed (refused while a record or a field default holds it), and an API name not given goes back to its default |
 | `multipaas enum retire --id ENUM_ID` | Retire an enum |
 | `multipaas field add --entity ENTITY_ID --type TYPE [--name] [--api-name] [--required] [--enum-type ENUM_ID] [--references ENTITY_ID] [--related FIELD_ID] [--parent] [--max-file-bytes N] [--lifecycle]` | Add a field |
-| `multipaas field update --id FIELD_ID [--type] [--name] [--api-name] [--required[=false]] [--enum-type ENUM_ID] [--references] [--related] [--parent[=false]] [--max-file-bytes]` | Change a field. Only the flags given change |
+| `multipaas field update --id FIELD_ID [--type] [--name] [--api-name] [--required[=false]] [--enum-type ENUM_ID] [--references] [--related] [--parent[=false]] [--max-file-bytes N]` | Change a field. Only the flags given change |
 | `multipaas field retire --id FIELD_ID` | Retire a field |
 | `multipaas constraint add --entity ENTITY_ID --fields FIELD_ID,FIELD_ID` | Make those fields unique together |
 | `multipaas constraint retire --id CONSTRAINT_ID` | Retire a constraint |
