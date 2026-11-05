@@ -25,13 +25,13 @@ These commands need CLI 0.3.0 or later, and the `application.manage_oauth` permi
 
 ## Signing in to a test environment
 
-Choosing an environment needs CLI CLI_FLOOR_TBD or later. Check `multipaas --version` first, and if it is older, ask the user to upgrade.
+Choosing an environment needs CLI 1.2.0 or later. Check `multipaas --version` first, and if it is older, ask the user to upgrade.
 
-An application keeps its test data in separate environments, and a sign-in is to one of them. To sign in to another than the default, run `multipaas init --app APP_ID --env ENV_ID --tenant APP_TENANT_ID --json`, with the environment id from `multipaas envs list --app APP_ID --json` and an app-tenant of that environment. It saves `environmentId` in `multipaas.json`, and the authorize request passes it as `environment`. The same client and redirect URIs serve every environment, so there is nothing to register again. `init` always saves the environment of the app-tenant it pins, with or without `--env`, so an app whose test app-tenant is in another environment signs in to that environment. A `multipaas.json` written by a CLI older than CLI_FLOOR_TBD has no `environmentId`, and its app signs in to the default environment until `init` is run again with the newer CLI.
+An application keeps its test data in separate environments, and a sign-in is to one of them. To sign in to another than the default, run `multipaas init --app APP_ID --env ENV_ID --tenant APP_TENANT_ID --json`, with the environment id from `multipaas envs list --app APP_ID --json` and an app-tenant of that environment. It saves `environmentId` in `multipaas.json`, and the authorize request passes it as `environment`. The same client and redirect URIs serve every environment, so there is nothing to register again. `init` always saves the environment of the app-tenant it pins, with or without `--env`, so an app whose test app-tenant is in another environment signs in to that environment. A `multipaas.json` written by a CLI older than 1.2.0 has no `environmentId`, and its app signs in to the default environment until `init` is run again with the newer CLI.
 
 ## App identities
 
-An app identity belongs to the environment it was created in: `multipaas app-identity create --env ENV_ID --name NAME --json`, or the environment in `multipaas.json` when `--env` is left out; both need CLI CLI_FLOOR_TBD or later. Its client-credentials tokens are for that environment only, and an `app_tenant` from another environment is refused. `multipaas-build` covers creating identities and getting their tokens.
+An app identity belongs to the environment it was created in: `multipaas app-identity create --env ENV_ID --name NAME --json`, or the environment in `multipaas.json` when `--env` is left out; both need CLI 1.2.0 or later. Its client-credentials tokens are for that environment only, and an `app_tenant` from another environment is refused. `multipaas-build` covers creating identities and getting their tokens.
 
 ## The flow
 

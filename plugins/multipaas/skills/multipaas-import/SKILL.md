@@ -14,7 +14,7 @@ These commands need CLI 0.7.0 or later. If `multipaas --version` reports an olde
 
 `--env` on the import commands needs CLI 0.13.0 or later. Upgrade the same way.
 
-Every import command takes `--env ENV_ID`, an `id` from `multipaas envs list --app APP_ID --json`. An import belongs to one environment and writes its app-tenants and records there; without `--env` it uses the application's default environment. Import test data into a non-default environment first (`multipaas envs create --app APP_ID --name test --json` makes one), and give every command for that import the same `--env`.
+Every import command takes `--env ENV_ID`, an `id` from `multipaas envs list --app APP_ID --json`. An import belongs to one environment and writes its app-tenants and records there; without `--env` it uses `environmentId` in `multipaas.json` when that file is for the same application (CLI 1.2.0 or later), else the application's default environment. Import test data into a non-default environment first (`multipaas envs create --app APP_ID --name test --json` makes one), and give every command for that import the same `--env`.
 
 An import needs permission to manage the application's access (`access.manage.application`). It writes everything or nothing.
 
@@ -54,7 +54,7 @@ Write one JSON-lines file per kind into one directory, one JSON object per line,
 
 The import is `{"id", "status", "files": [...], "problemCount", "problems": [{"file", "line", "sourceId", "field", "code", "message"}], "counts": [{"key", "count"}], ...}`. `check` and `run` exit 0 when they finish, whatever the result, so read `status`.
 
-In the table below, `import check`, `import run` and `import status` mean those commands from the table above with the same `--app`, `--import` and `--json`, and `import create --dir` means the create command with the same `--app`, `--dir` and `--json`; it makes a new import, with a new id:
+Every import command named anywhere below, `import add`, `import delete` and the rest, takes the same `--env` as the one that made the import. In the table below, `import check`, `import run` and `import status` mean those commands from the table above with the same `--app`, `--env` (if you gave one), `--import` and `--json`, and `import create --dir` means the create command with the same `--app`, `--env` (if you gave one), `--dir` and `--json`; it makes a new import, with a new id, in the same environment as the import it replaces. Every `import create --dir` named anywhere below, in the refusal table too, is that command, so a replacement is never made without the original's `--env`:
 
 | `status` | Next |
 |---|---|
@@ -86,4 +86,4 @@ A refused command exits 1 with `{"error": {"code", "message"}}`. Tell the user t
 | `FILE_UPLOAD_NOT_VERIFIED` | An upload did not complete and its file is still on the import, so it cannot be added again. Run `import create --dir` for a new import |
 | `PROBLEM_REPORT_UNAVAILABLE` | The full problem report could not be downloaded. Run `import status` again |
 | `IMPORT_STILL_RUNNING` | Still running after 20 minutes. Run `import status` later |
-| `NOT_FOUND` | No application or import with that id that the user can reach. A deleted import is `NOT_FOUND` too, unless `import status` is given `--include-deleted` |
+| `NOT_FOUND` | No application or import with that id that the user can reach. A deleted import is `NOT_FOUND` too, unless `import status` is given `--include-deleted`. An import is found only in the environment it was made in, so an import made in the default environment isn't found from a project whose `multipaas.json` has another `environmentId` (CLI 1.2.0 or later): run the command again with the `--env` the import was created with, looking through the environments from `multipaas envs list --app APP_ID --json` if it isn't known |
