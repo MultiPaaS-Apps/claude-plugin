@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.0.0...v1.1.0) (2026-11-06)
+
+
+### Features
+
+* [MP-227] teach the build and upgrade skills to filter, order and count lists ([#37](https://github.com/MultiPaaS-Apps/claude-plugin/issues/37)) ([e2eb3ef](https://github.com/MultiPaaS-Apps/claude-plugin/commit/e2eb3efebea8f3ec6801cf6b61130db3f426aa43))
+* [MP-235] describe signing in to one environment in the skills ([#38](https://github.com/MultiPaaS-Apps/claude-plugin/issues/38)) ([d221bcc](https://github.com/MultiPaaS-Apps/claude-plugin/commit/d221bcc484af5683a76400f1742af76abca90c26))
+* [MP-255] document records list --where, --order-by and --count ([#40](https://github.com/MultiPaaS-Apps/claude-plugin/issues/40)) ([c8a14fb](https://github.com/MultiPaaS-Apps/claude-plugin/commit/c8a14fb22d303046c6bc0c7c63f51919977a0a01))
+* [MP-256] teach the build and upgrade skills related and referenced filters ([#43](https://github.com/MultiPaaS-Apps/claude-plugin/issues/43)) ([fc10993](https://github.com/MultiPaaS-Apps/claude-plugin/commit/fc109938239e243c8f6e00886c19c400daea8a31))
+* [MP-265] skills change existing roles with roles update ([#41](https://github.com/MultiPaaS-Apps/claude-plugin/issues/41)) ([13a1355](https://github.com/MultiPaaS-Apps/claude-plugin/commit/13a1355d68adfe7a096a7329105c43eca9594e12))
+
+
+### Bug Fixes
+
+* [MP-255] say --order-by refuses file fields ([#42](https://github.com/MultiPaaS-Apps/claude-plugin/issues/42)) ([b3467a3](https://github.com/MultiPaaS-Apps/claude-plugin/commit/b3467a3cef7422e24b3eaff2d977c2238f874f9d))
+
 ## [1.0.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v0.7.0...v1.0.0) (2026-11-03)
 
 
