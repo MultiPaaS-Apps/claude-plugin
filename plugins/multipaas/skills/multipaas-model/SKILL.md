@@ -66,7 +66,15 @@ A change MultiPaaS refuses exits 1 with `{"error": {"code", "message"}}` and a c
 | `DUPLICATE_ENTITY_NAME`, `DUPLICATE_FIELD_NAME`, `DUPLICATE_CONSTRAINT` | That name, or that set of fields, already exists |
 | `UNSAFE_FIELD_CHANGE` | The change would rewrite existing records. Add a new field instead |
 | `ENTITY_IN_USE`, `FIELD_IN_CONSTRAINT`, `REFERENCE_HAS_RELATED_FIELD` | Something else depends on it. The message names what to retire first |
-| `EXISTING_RECORDS_VIOLATE_CONSTRAINT` | Existing records already break the uniqueness |
+| `EXISTING_RECORDS_VIOLATE_CONSTRAINT` | Existing records already break the uniqueness. Uniqueness holds within one app-tenant and among one environment's app-wide records, but adding a constraint checks every live environment. Follow "A uniqueness refusal" below |
 | `VALIDATION` | An input is invalid. The message names the fields |
 
 `CLI_ERROR` with a message such as `Unknown field type` is a bad flag value: fix it and run the command again.
+
+### A uniqueness refusal
+
+`constraint add` has no `--env` and acts in the application's default environment. The error names the duplicate records only when they are in that environment and the user can read them.
+
+1. Records named: ask the user which of them to change or remove, do it, then run `constraint add` again. The message can end "records in another environment of this application also share values" (do step 2 after this one) or "records in other app-tenants also share values" (step 3 for those).
+2. The message says records are in another environment of this application, alone or after named ones: that can be the environment `multipaas.json` pins. Listing by environment needs CLI 0.13.0 or later: check `multipaas --version` first, and if it is older, ask the user to upgrade as at the top. Take each `ENV_ID` from `multipaas envs list --app APP_ID --json`. Find the records with `multipaas records list --app APP_ID --entity ENTITY_ID --app-wide --env ENV_ID --json`, and for an app-tenant of that environment (`multipaas tenants list --app APP_ID --env ENV_ID --json`) with `--tenant APP_TENANT_ID` in place of `--app-wide --env ENV_ID`. Ask the user which to change or remove, do it, then run `constraint add` again.
+3. The message is only "existing records share values for the constrained fields", or says "in other app-tenants", or `UNAUTHORIZED` stops the listing: the user can't read those records, and the bare message can also mean they can read app-tenant records but not app-wide ones. Tell them to ask someone who can to clear the duplicates, then run `constraint add` again.
