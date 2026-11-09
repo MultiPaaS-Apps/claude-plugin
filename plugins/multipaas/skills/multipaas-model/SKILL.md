@@ -74,7 +74,7 @@ A change MultiPaaS refuses exits 1 with `{"error": {"code", "message"}}` and a c
 | `ENUM_VALUE_IN_USE` | `enum update --values` would remove a value that a record or a field default still holds. Retired records and records in other app-tenants count too. The message lists every value the update would remove, not only the ones still held. Keep those values in `--values` |
 | `ENTITY_IN_USE`, `ENUM_IN_USE`, `FIELD_IN_CONSTRAINT`, `REFERENCE_HAS_RELATED_FIELD` | Something else depends on it. The message names what to retire first. When the entity or enum being retired has a type name the generated API has for itself, follow the paragraph about those names above instead |
 | `EXISTING_RECORDS_VIOLATE_CONSTRAINT` | Existing records already break the uniqueness. Uniqueness holds within one app-tenant and among one environment's app-wide records, but adding a constraint checks every live environment. Follow "A uniqueness refusal" below |
-| `CONSTRAINT_LIMIT` | The entity already has 10 unique constraints, the most it can have. Ask the user which of the entity's constraints to retire with `constraint retire`, or whether to drop the new one instead. Never retire one on your own |
+| `CONSTRAINT_LIMIT` | The entity already has 10 unique constraints, the most it can have. Ask the user which of the entity's constraints to retire with `constraint retire`, or whether to drop the new one instead. Retire the one the user picks, then run `constraint add` again. Never retire one on your own |
 | `VALIDATION` | An input is invalid. The message names the fields |
 
 `CLI_ERROR` with a message such as `Unknown field type` is a bad flag value: fix it and run the command again.
