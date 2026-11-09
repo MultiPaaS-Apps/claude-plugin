@@ -79,7 +79,7 @@ An app identity's token works only on the generated API: its records and the `me
 
 ## Moving to a newer API version
 
-A model change mints a new API version. The app stays on its pin until it moves, so a change never breaks it. To see what changed or to move the app, use the `multipaas-upgrade` skill.
+A model change mints a new API version. A model with an entity or enum whose type name is `File`, `FileUpload` or `HttpHeader` gets no new version while it has one (see the `multipaas-model` skill). The app stays on its pin until it moves, so a change never breaks it. To see what changed or to move the app, use the `multipaas-upgrade` skill.
 
 ## Test data
 
