@@ -81,6 +81,20 @@ A job that runs without an end user, such as one that fills a shared word list, 
 
 An app identity's token works only on the generated API: its records and the `me` query. It can't manage app-tenants, their members or invitations, roles or role grants, OAuth clients, app identities or the model: the CLI and the web app refuse its token, and the generated API has no such operations. When a job needs one of those, it can't do it as the app. Tell the user someone signed in to MultiPaaS has to do it.
 
+## CI: a test environment per pull request
+
+A CI job that gives each pull request its own environment signs in as a **deployer**, not as the developer. A deployer creates environments, removes only those it created, and in them creates app-tenants and app identities, and gives roles that don't change the model to those app identities only, never to a person. It can't change the model, roles' definitions, sign-in clients, API versions or imports, and can't reach any other environment, the default one included. This needs CLI 1.5.0 or later: check `multipaas --version` first, and if it is older, ask the user to upgrade as in the header.
+
+1. Once, the developer runs `multipaas deployers create --app APP_ID --name "CI" --json`. It needs permission to manage the application. It prints `{"deployer": {"id", …}, "secret"}`, and the secret is shown once. Ask the user to store `deployer.id` as the CI secret `MULTIPAAS_CLIENT_ID` and `secret` as `MULTIPAAS_CLIENT_SECRET`, never in the repo.
+2. When a pull request opens, the job runs with both variables set. In that case `login` is refused and isn't needed. It runs, in order:
+   - `multipaas envs create --app APP_ID --name pr-NUMBER --json`, which keeps `environment.id`;
+   - `multipaas tenants create --app APP_ID --env ENV_ID --name NAME --json`;
+   - `multipaas app-identity create --app APP_ID --env ENV_ID --name NAME --json` for a job the app runs;
+   - `multipaas app-identity role add CLIENT_ID --app APP_ID --tenant APP_TENANT_ID --role KEY --json`. A role carrying `model.edit`, such as the App manager role, is refused with `UNAUTHORIZED`.
+3. When the pull request closes, the job runs `multipaas envs remove --app APP_ID --env ENV_ID --json`. Find `ENV_ID` with `multipaas envs list --app APP_ID --json`, which lists only the environments this deployer created.
+
+Anything a deployer may not do is refused with `UNAUTHORIZED`: tell the user it needs a person signed in to MultiPaaS. An environment it didn't create comes back `NOT_FOUND`, the same as one that doesn't exist. With only one of the two variables set, every command exits 1 with `DEPLOYER_CREDENTIALS_INCOMPLETE`: ask the user to check the CI secrets. To stop a deployer at once, the developer runs `multipaas deployers retire --app APP_ID --id CLIENT_ID --json`. Its tokens stop working immediately, and this can't be undone.
+
 ## Moving to a newer API version
 
 A model change mints a new API version. A model with an entity or enum whose type name is `File`, `FileUpload` or `HttpHeader` gets no new version while it has one (see the `multipaas-model` skill). The app stays on its pin until it moves, so a change never breaks it. To see what changed or to move the app, use the `multipaas-upgrade` skill.
