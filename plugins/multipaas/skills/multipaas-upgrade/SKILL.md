@@ -27,6 +27,8 @@ A renamed field shows up as its old name removed (**breaking**) and its new name
 
 Tell the user what would break in their app, by naming the places in their code, then what to watch, then what's new. When all three lists are empty, no change graphql-js reports affects the app's existing requests, so there is nothing to change in the app.
 
+Versions made before file fields let an entity or enum have the type name `File`, `FileUpload` or `HttpHeader`. When `multipaas model show --json` lists one with that `graphqlTypeName`, MultiPaaS refuses every model change that leaves it in place, so the newest version stays one without file fields. Tell the user, and offer to rename it, or retire it if it's no longer needed and nothing uses it, with the `multipaas-model` skill, which also says what to do when that change is refused too. The change makes a new version, so diff it as above before moving the app.
+
 ## Upgrade, when the user asks
 
 1. `multipaas pin --api-version TO --json`, with `TO` the `to` from the diff, so the app moves to the version whose changes were reviewed. It prints the new `multipaas.json`.
