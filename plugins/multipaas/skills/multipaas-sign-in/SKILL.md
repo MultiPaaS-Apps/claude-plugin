@@ -35,6 +35,8 @@ A preview's URL is not known until its pull request exists, so register its call
 
 `SIGN_IN_CLIENT_ID` below is the sign-in client's id: the `oauthClientId` in `multipaas.json`, or the `id` field of the client's entry in `multipaas oauth-client list --app APP_ID --json`.
 
+These commands need CLI 1.5.0 or later. Check `multipaas --version` first, and if it is older, ask the user to upgrade.
+
 - **Create** the environment with its callback in one step: `multipaas envs create --app APP_ID --name pr-42 --sign-in-client SIGN_IN_CLIENT_ID --redirect-uri https://pr42.example.com/callback`. A CI deployer can run this.
 - **Change it later** with `multipaas envs redirect-uris set --app APP_ID --env ENV_ID --sign-in-client SIGN_IN_CLIENT_ID --redirect-uri URL`. Without `--redirect-uri` it clears the set, and `multipaas envs redirect-uris list --app APP_ID --env ENV_ID` shows it.
 - **The app's authorize request must carry `environment=ENV_ID`.** Otherwise the callback is refused with a 400 and no redirect.
