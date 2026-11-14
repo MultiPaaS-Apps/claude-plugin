@@ -27,7 +27,21 @@ These commands need CLI 0.3.0 or later, and the `application.manage_oauth` permi
 
 Choosing an environment needs CLI 1.2.0 or later. Check `multipaas --version` first, and if it is older, ask the user to upgrade.
 
-An application keeps its test data in separate environments, and a sign-in is to one of them. To sign in to another than the default, run `multipaas init --app APP_ID --env ENV_ID --tenant APP_TENANT_ID --api-version API_VERSION --json`, with the environment id from `multipaas envs list --app APP_ID --json`, an app-tenant of that environment, and `API_VERSION` the `apiVersion` in `multipaas.json`, which keeps the pin (a bare `init` pins the application's newest API version; leave it out in a project with no `apiVersion` yet). It saves `environmentId` in `multipaas.json`, and the authorize request passes it as `environment`. The same client and redirect URIs serve every environment, so there is nothing to register again. `init` always saves the environment of the app-tenant it pins, with or without `--env`, so an app whose test app-tenant is in another environment signs in to that environment. A `multipaas.json` written by a CLI older than 1.2.0 has no `environmentId`, and its app signs in to the default environment until `init` is run again with the newer CLI, as the `multipaas-build` skill's `init` step describes (it says when `--env` is needed), keeping the pin as above.
+An application keeps its test data in separate environments, and a sign-in is to one of them. To sign in to another than the default, run `multipaas init --app APP_ID --env ENV_ID --tenant APP_TENANT_ID --api-version API_VERSION --json`, with the environment id from `multipaas envs list --app APP_ID --json`, an app-tenant of that environment, and `API_VERSION` the `apiVersion` in `multipaas.json`, which keeps the pin (a bare `init` pins the application's newest API version; leave it out in a project with no `apiVersion` yet). It saves `environmentId` in `multipaas.json`, and the authorize request passes it as `environment`. The client's own redirect URIs work in every environment, so there is nothing to register again. A test environment can also accept callbacks of its own, for example each pull request's preview URL, that work only when the sign-in names that environment; see "A preview per pull request" below. `init` always saves the environment of the app-tenant it pins, with or without `--env`, so an app whose test app-tenant is in another environment signs in to that environment. A `multipaas.json` written by a CLI older than 1.2.0 has no `environmentId`, and its app signs in to the default environment until `init` is run again with the newer CLI, as the `multipaas-build` skill's `init` step describes (it says when `--env` is needed), keeping the pin as above.
+
+### A preview per pull request
+
+A preview's URL is not known until its pull request exists, so register its callback on the preview's own environment instead of on the client:
+
+`SIGN_IN_CLIENT_ID` below is the sign-in client's id: the `oauthClientId` in `multipaas.json`, or the `id` field of the client's entry in `multipaas oauth-client list --app APP_ID --json`.
+
+These commands need CLI 1.5.0 or later. Check `multipaas --version` first, and if it is older, ask the user to upgrade.
+
+- **Create** the environment with its callback in one step: `multipaas envs create --app APP_ID --name pr-42 --sign-in-client SIGN_IN_CLIENT_ID --redirect-uri https://pr42.example.com/callback`. A CI deployer can run this.
+- **Change it later** with `multipaas envs redirect-uris set --app APP_ID --env ENV_ID --sign-in-client SIGN_IN_CLIENT_ID --redirect-uri URL`. Without `--redirect-uri` it clears the set, and `multipaas envs redirect-uris list --app APP_ID --env ENV_ID` shows it.
+- **The app's authorize request must carry `environment=ENV_ID`.** Otherwise the callback is refused with a 400 and no redirect.
+- **It's erased with the environment.** No cleanup step is needed.
+- **The limit:** at most 10 per environment per client, under the same URL rules. They don't count toward the client's 10.
 
 ## App identities
 
@@ -39,7 +53,7 @@ Use the `endpoints` that `multipaas init --json` printed, and `oauthClientId` fr
 
 1. **Authorize.** Send the browser to `endpoints.authorize` with these parameters:
    - `client_id`
-   - `redirect_uri`: exactly one of the registered ones
+   - `redirect_uri`: exactly one of the client's registered URIs, or one registered on the environment you sign in to (the one named in `environment`, else the default environment)
    - `response_type=code`
    - `code_challenge`: base64url SHA-256 of a random verifier
    - `code_challenge_method=S256`
