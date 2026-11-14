@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.2.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.1.0...v1.2.0) (2026-11-14)
+
+
+### Features
+
+* [MP-224] add the per-pull-request CI recipe ([#51](https://github.com/MultiPaaS-Apps/claude-plugin/issues/51)) ([fca56bb](https://github.com/MultiPaaS-Apps/claude-plugin/commit/fca56bbb61cd0bb6dc2b3209e1e43b794fe79e53))
+* [MP-226] explain per-PR preview sign-in callbacks ([#58](https://github.com/MultiPaaS-Apps/claude-plugin/issues/58)) ([47c3a21](https://github.com/MultiPaaS-Apps/claude-plugin/commit/47c3a21599fe82d1eb81484c2d404c7703a80030))
+* [MP-236] teach the skills to protect and remove environments ([#44](https://github.com/MultiPaaS-Apps/claude-plugin/issues/44)) ([d995196](https://github.com/MultiPaaS-Apps/claude-plugin/commit/d99519649a66d8358a525c00bbddd8819a54ffea))
+* [MP-253] teach the build skill browser uploads and the file lifecycle ([#48](https://github.com/MultiPaaS-Apps/claude-plugin/issues/48)) ([475d9aa](https://github.com/MultiPaaS-Apps/claude-plugin/commit/475d9aad18421db2f8050f962ad0891f639530e7))
+* [MP-254] teach the import skill to carry record files ([#45](https://github.com/MultiPaaS-Apps/claude-plugin/issues/45)) ([f1470cc](https://github.com/MultiPaaS-Apps/claude-plugin/commit/f1470ccccbd396e93f3e9c36d2ce863def2fb22f))
+* [MP-258] teach the build and upgrade skills to use aggregates ([#59](https://github.com/MultiPaaS-Apps/claude-plugin/issues/59)) ([fa5708a](https://github.com/MultiPaaS-Apps/claude-plugin/commit/fa5708a9d33d0668ac902de53dd4c665ea574e2d))
+* [MP-259] teach the build skill cursor paging ([#57](https://github.com/MultiPaaS-Apps/claude-plugin/issues/57)) ([11c1b6c](https://github.com/MultiPaaS-Apps/claude-plugin/commit/11c1b6c627afbad0adc03ce7df45391490267660))
+* [MP-261] show agents how to update a record safely ([#46](https://github.com/MultiPaaS-Apps/claude-plugin/issues/46)) ([712d020](https://github.com/MultiPaaS-Apps/claude-plugin/commit/712d0201a2e7afe8165c2c0affc4757bdbf74dfb))
+* [MP-276] tell the import skill about the file limits and how to split an import ([#53](https://github.com/MultiPaaS-Apps/claude-plugin/issues/53)) ([2a136b2](https://github.com/MultiPaaS-Apps/claude-plugin/commit/2a136b24568ad80239d511bf467a37851fdceb82))
+* [MP-278] import skill: follow symlinks under files, with next steps for refused links ([#54](https://github.com/MultiPaaS-Apps/claude-plugin/issues/54)) ([9d0b619](https://github.com/MultiPaaS-Apps/claude-plugin/commit/9d0b619e4276c58d38564a857575331726329864))
+* [MP-281] teach the model skill field defaults and not-null ([#49](https://github.com/MultiPaaS-Apps/claude-plugin/issues/49)) ([670367c](https://github.com/MultiPaaS-Apps/claude-plugin/commit/670367cb7dc3440d1693ca31dc3355ed1c8073e6))
+* [MP-282] say in the skills that an entity can have up to 10 unique constraints ([#52](https://github.com/MultiPaaS-Apps/claude-plugin/issues/52)) ([2425660](https://github.com/MultiPaaS-Apps/claude-plugin/commit/242566056771a3f67d274a777840974447d8a10c))
+* [MP-283] teach the multipaas skills list fields ([#55](https://github.com/MultiPaaS-Apps/claude-plugin/issues/55)) ([1e88491](https://github.com/MultiPaaS-Apps/claude-plugin/commit/1e8849178cc0fdee1a7273626e43213a8ce2e8f2))
+* [MP-284] teach the import skill to re-issue lapsed invitations ([#56](https://github.com/MultiPaaS-Apps/claude-plugin/issues/56)) ([b883e22](https://github.com/MultiPaaS-Apps/claude-plugin/commit/b883e22c07ed4e8ff5c5e3b9ba2e55c16fd6a79f))
+
+
+### Bug Fixes
+
+* [MP-280] teach the skills the type names a model can't use and how to move a model off a legacy one ([#50](https://github.com/MultiPaaS-Apps/claude-plugin/issues/50)) ([6880b49](https://github.com/MultiPaaS-Apps/claude-plugin/commit/6880b490e738be2c831f9f10b93c167cdf2bb6f4))
+* [MP-292] describe how pinned lists read converted and default values ([#60](https://github.com/MultiPaaS-Apps/claude-plugin/issues/60)) ([16309d7](https://github.com/MultiPaaS-Apps/claude-plugin/commit/16309d739da3ad31c19f3e0ceb84d4fa6f0dd907))
+
 ## [1.1.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.0.0...v1.1.0) (2026-11-06)
 
 
