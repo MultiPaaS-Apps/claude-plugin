@@ -79,7 +79,7 @@ Names always match ignoring case. Records files for different entities are diffe
 Otherwise put it: a `files` part under `DIR/files/` at its `--name`, and a `.jsonl` file directly in `DIR`, named for its kind or entity. The one exception is a `.jsonl` file that `create --dir` refuses as `IMPORT_FILE_AMBIGUOUS` (see the refusal table). Keep it outside `DIR`, and note the `--kind`, and for `records` the `--entity`, it is added with.
 
 **Make the import** this way, the first time and for every replacement:
-1. If a `.jsonl` file sits directly in `DIR`, run `import create` with `--dir 'DIR'`; it uploads `DIR/files/` too. If none does, because every `.jsonl` file is kept outside `DIR`, run `import create` without `--dir`, then add each file under `DIR/files/` with `multipaas import add --app APP_ID --import IMPORT_ID --kind files --name 'PATH' --file 'DIR/files/PATH' --json`, where `PATH` is its path under `files/` with `/` separators.
+1. If a `.jsonl` file sits directly in `DIR`, run `import create` with `--env ENV_ID --dir 'DIR'`; it uploads `DIR/files/` too. If none does, because every `.jsonl` file is kept outside `DIR`, run `import create` with `--env ENV_ID` and without `--dir`, then add each file under `DIR/files/` with `multipaas import add --app APP_ID --env ENV_ID --import IMPORT_ID --kind files --name 'PATH' --file 'DIR/files/PATH' --json`, where `PATH` is its path under `files/` with `/` separators.
 2. Add each file kept outside `DIR` with `import add`, `--import` set to the new import's `id`, and the `--kind` and `--entity` you noted.
 3. Run `import check`.
 
