@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.2.0...v1.3.0) (2026-11-15)
+
+
+### Features
+
+* [MP-266] share new records with the app-tenant in the model, build and import skills ([#62](https://github.com/MultiPaaS-Apps/claude-plugin/issues/62)) ([9c468af](https://github.com/MultiPaaS-Apps/claude-plugin/commit/9c468af22e3869bb52a26a956c30023c384aca03))
+* [MP-297] show how to read a set of records by id in the build skill ([#67](https://github.com/MultiPaaS-Apps/claude-plugin/issues/67)) ([ad3774e](https://github.com/MultiPaaS-Apps/claude-plugin/commit/ad3774e538612dfdc8411f99e33a73ffddb97222))
+* [MP-300] skills say envs delete and state the 7-day erase ([#66](https://github.com/MultiPaaS-Apps/claude-plugin/issues/66)) ([c2dd309](https://github.com/MultiPaaS-Apps/claude-plugin/commit/c2dd309dddfba07d5d56a47a1fdc8557034f7d5c))
+
+
+### Bug Fixes
+
+* [MP-287] single-quote user values in multipaas skill commands ([#63](https://github.com/MultiPaaS-Apps/claude-plugin/issues/63)) ([6c9be0c](https://github.com/MultiPaaS-Apps/claude-plugin/commit/6c9be0cb3f768fd8cd86444f746696d37cc2f6c0))
+* [MP-288] guard import skill writes under DIR/files against links ([#65](https://github.com/MultiPaaS-Apps/claude-plugin/issues/65)) ([e495554](https://github.com/MultiPaaS-Apps/claude-plugin/commit/e49555423d72b0e78fa9fb70b0387308fca03812))
+
 ## [1.2.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.1.0...v1.2.0) (2026-11-14)
 
 
