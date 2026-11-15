@@ -10,7 +10,7 @@ An app's end users sign in to MultiPaaS through the app's own OAuth client. The 
 
 These commands need CLI 0.3.0 or later, and the `application.manage_oauth` permission on the application. Without the permission, they're refused with `UNAUTHORIZED`, the same as in the web app. Only someone who manages the application's access can grant it.
 
-A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path outside the quotes.
+A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path on disk outside the quotes.
 
 ## Register the client
 

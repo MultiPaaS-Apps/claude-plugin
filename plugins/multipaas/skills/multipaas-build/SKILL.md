@@ -10,7 +10,7 @@ The `multipaas` skill covers installing the CLI, signing in and the exit codes. 
 
 These commands need CLI 0.5.0 or later. If `multipaas --version` reports an older version, ask the user to run `brew update`, then, as a separate command, `brew upgrade multipaas`.
 
-A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path outside the quotes. A command other than a single `multipaas` call sets it as a single-quoted variable read back as `"${X:?}"`. A `--data` or `--where` object stays in single quotes, with each `'` in it written as `'\''`.
+A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path on disk outside the quotes. A command other than a single `multipaas` call sets it as a single-quoted variable read back as `"${X:?}"`. A `--data` or `--where` object stays in single quotes, with each `'` in it written as `'\''`.
 
 Creating an application (`apps create`) needs CLI 0.8.0 or later. Upgrade the same way.
 

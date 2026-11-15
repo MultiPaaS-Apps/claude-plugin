@@ -10,7 +10,7 @@ The `multipaas` skill covers installing the CLI, signing in and the exit codes. 
 
 These commands need CLI 0.7.0 or later. If `multipaas --version` reports an older version, ask the user to run `brew update`, then, as a separate command, `brew upgrade multipaas`.
 
-A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path outside the quotes. A command other than a single `multipaas` call sets it as a single-quoted variable read back as `"${X:?}"`.
+A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path on disk outside the quotes, but keep a `--name` wholly inside them even when it starts with `~/`. A command other than a single `multipaas` call sets it as a single-quoted variable read back as `"${X:?}"`.
 
 `import delete` and `import status --include-deleted` need CLI 0.9.0 or later. Upgrade the same way.
 
