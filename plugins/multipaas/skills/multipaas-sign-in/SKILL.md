@@ -10,13 +10,15 @@ An app's end users sign in to MultiPaaS through the app's own OAuth client. The 
 
 These commands need CLI 0.3.0 or later, and the `application.manage_oauth` permission on the application. Without the permission, they're refused with `UNAUTHORIZED`, the same as in the web app. Only someone who manages the application's access can grant it.
 
+A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path on disk outside the quotes.
+
 ## Register the client
 
 | Command | Does |
 |---|---|
 | `multipaas oauth-client list --json` | `[{"id", "name", "redirectUris", "createdAt"}]` |
-| `multipaas oauth-client create --name NAME --redirect-uri URL [--redirect-uri URL] --json` | `{"oauthClient": {...}}`. In a directory with `multipaas.json`, its id is saved there as `oauthClientId` |
-| `multipaas oauth-client update [--id ID] [--name NAME] [--redirect-uri URL ...] --json` | Changes only what is given. `--redirect-uri` replaces the whole list. `--id` defaults to `oauthClientId` when `multipaas.json` is for the same application |
+| `multipaas oauth-client create --name 'NAME' --redirect-uri 'URL' [--redirect-uri 'URL'] --json` | `{"oauthClient": {...}}`. In a directory with `multipaas.json`, its id is saved there as `oauthClientId` |
+| `multipaas oauth-client update [--id ID] [--name 'NAME'] [--redirect-uri 'URL' ...] --json` | Changes only what is given. `--redirect-uri` replaces the whole list. `--id` defaults to `oauthClientId` when `multipaas.json` is for the same application |
 
 - A redirect URI must be `https`, or `http` on `localhost` or `127.0.0.1`.
 - A client takes 1 to 10 redirect URIs.
@@ -38,14 +40,14 @@ A preview's URL is not known until its pull request exists, so register its call
 These commands need CLI 1.5.0 or later. Check `multipaas --version` first, and if it is older, ask the user to upgrade.
 
 - **Create** the environment with its callback in one step: `multipaas envs create --app APP_ID --name pr-42 --sign-in-client SIGN_IN_CLIENT_ID --redirect-uri https://pr42.example.com/callback`. A CI deployer can run this.
-- **Change it later** with `multipaas envs redirect-uris set --app APP_ID --env ENV_ID --sign-in-client SIGN_IN_CLIENT_ID --redirect-uri URL`. Without `--redirect-uri` it clears the set, and `multipaas envs redirect-uris list --app APP_ID --env ENV_ID` shows it.
+- **Change it later** with `multipaas envs redirect-uris set --app APP_ID --env ENV_ID --sign-in-client SIGN_IN_CLIENT_ID --redirect-uri 'URL'`. Without `--redirect-uri` it clears the set, and `multipaas envs redirect-uris list --app APP_ID --env ENV_ID` shows it.
 - **The app's authorize request must carry `environment=ENV_ID`.** Otherwise the callback is refused with a 400 and no redirect.
 - **It's erased with the environment.** No cleanup step is needed.
 - **The limit:** at most 10 per environment per client, under the same URL rules. They don't count toward the client's 10.
 
 ## App identities
 
-An app identity belongs to the environment it was created in: `multipaas app-identity create --env ENV_ID --name NAME --json`, or the environment in `multipaas.json` when `--env` is left out; both need CLI 1.2.0 or later. Its client-credentials tokens are for that environment only, and an `app_tenant` from another environment is refused. `multipaas-build` covers creating identities and getting their tokens.
+An app identity belongs to the environment it was created in: `multipaas app-identity create --env ENV_ID --name 'NAME' --json`, or the environment in `multipaas.json` when `--env` is left out; both need CLI 1.2.0 or later. Its client-credentials tokens are for that environment only, and an `app_tenant` from another environment is refused. `multipaas-build` covers creating identities and getting their tokens.
 
 ## The flow
 
