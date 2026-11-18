@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.3.0...v1.4.0) (2026-11-18)
+
+
+### Features
+
+* [MP-301] the multipaas skills delete app-tenants and state the 30 days ([#70](https://github.com/MultiPaaS-Apps/claude-plugin/issues/70)) ([e56c90b](https://github.com/MultiPaaS-Apps/claude-plugin/commit/e56c90b9b87e2f0d772412c4a7a300c64e7dff65))
+
+
+### Bug Fixes
+
+* [MP-307] refuse a gone-link repair target that holds the link or DIR ([#68](https://github.com/MultiPaaS-Apps/claude-plugin/issues/68)) ([1c70f75](https://github.com/MultiPaaS-Apps/claude-plugin/commit/1c70f757c1b617d6cdf4fa2d4e87898aa756a6a5))
+* [MP-310] show new nulls and hidden records before acting on reworked drops ([#73](https://github.com/MultiPaaS-Apps/claude-plugin/issues/73)) ([6087663](https://github.com/MultiPaaS-Apps/claude-plugin/commit/6087663d3416688debc7e61cca4a394e532a19b2))
+
 ## [1.3.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.2.0...v1.3.0) (2026-11-15)
 
 
