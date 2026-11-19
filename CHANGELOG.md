@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.4.0...v1.5.0) (2026-11-19)
+
+
+### Features
+
+* [MP-298] teach the build skill to share and unshare records ([#69](https://github.com/MultiPaaS-Apps/claude-plugin/issues/69)) ([5953b45](https://github.com/MultiPaaS-Apps/claude-plugin/commit/5953b45308ad32af1fce9097113d8671bfdeed40))
+
 ## [1.4.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.3.0...v1.4.0) (2026-11-18)
 
 
