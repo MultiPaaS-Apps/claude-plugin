@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.5.0...v1.5.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* [MP-247] teach the skills the app-wide parent rule ([#75](https://github.com/MultiPaaS-Apps/claude-plugin/issues/75)) ([beb6423](https://github.com/MultiPaaS-Apps/claude-plugin/commit/beb6423b4baa35bafb786f447af1c71d77aed1f8))
+
 ## [1.5.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.4.0...v1.5.0) (2026-11-19)
 
 
