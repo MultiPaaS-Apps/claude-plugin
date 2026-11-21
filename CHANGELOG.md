@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.5.2...v1.6.0) (2026-11-21)
+
+
+### Features
+
+* [MP-304] the multipaas skills say "delete" ([#78](https://github.com/MultiPaaS-Apps/claude-plugin/issues/78)) ([30a7031](https://github.com/MultiPaaS-Apps/claude-plugin/commit/30a703138977797c1c8b0eed774d8acb577ba377))
+
 ## [1.5.2](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.5.1...v1.5.2) (2026-11-21)
 
 
