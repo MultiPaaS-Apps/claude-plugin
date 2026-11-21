@@ -8,7 +8,7 @@ allowed-tools: Bash(multipaas *)
 
 An app's end users sign in to MultiPaaS through the app's own OAuth client. The app gets an access token for the generated API. The `multipaas-build` skill covers the project and the API calls.
 
-These commands need CLI 0.3.0 or later, and the `application.manage_oauth` permission on the application. Without the permission, they're refused with `UNAUTHORIZED`, the same as in the web app. Only someone who manages the application's access can grant it.
+These commands need CLI 0.3.0 or later, and the `application.manage_oauth` permission on the application. Creating, changing or deleting the sign-in client needs it from a role granted in every environment, because the client is shared by every environment; listing needs it only in the environment the command acts in. Without the permission, they're refused with `UNAUTHORIZED`, the same as in the web app. Only someone who manages the application's access can grant it.
 
 A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path on disk outside the quotes.
 
