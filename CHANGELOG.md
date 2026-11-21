@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.6.1...v1.7.0) (2026-11-21)
+
+
+### Features
+
+* [MP-332] teach the skills to make an API version on request ([#79](https://github.com/MultiPaaS-Apps/claude-plugin/issues/79)) ([40d10ae](https://github.com/MultiPaaS-Apps/claude-plugin/commit/40d10ae6726f81df8a5e1c448dec891626390f84))
+* [MP-336] import into an existing app-tenant ([#80](https://github.com/MultiPaaS-Apps/claude-plugin/issues/80)) ([fe2ce77](https://github.com/MultiPaaS-Apps/claude-plugin/commit/fe2ce77967c13f6c2141e46fe56e9cdf2b11743e))
+
 ## [1.6.1](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.6.0...v1.6.1) (2026-11-21)
 
 
