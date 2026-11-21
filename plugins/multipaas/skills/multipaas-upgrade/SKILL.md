@@ -31,7 +31,7 @@ Versions made before file fields let an entity or enum have the type name `File`
 
 ## Get the newest API features without a model change
 
-`versions diff --json` carries `upgradeAvailable`, and `versions list` ends with "Newer API features are available: run multipaas versions create" when it is true. It means MultiPaaS can make a version of the same model with newer API features, such as list `where`, `orderBy` and `totalCount`. When the user wants them, run `multipaas versions create --json`. It prints `{"id", "createdAt", "generatorVersion"}` and does not pin. Then run `multipaas versions diff --json` again (its `to` is now the new version) and carry on as below. `versions create` needs CLI 1.9.0 or later. With an older CLI, ask the user to upgrade as at the top.
+`versions diff --json` carries `upgradeAvailable`, and `versions list` ends with "Newer API features are available: run multipaas versions create --app APP_ID", with the application's id, when it is true. It means MultiPaaS can make a version of the same model with newer API features, such as list `where`, `orderBy` and `totalCount`. When the user wants them, run `multipaas versions create --json`. It prints `{"id", "createdAt", "generatorVersion"}` and does not pin. Then run `multipaas versions diff --json` again (its `to` is now the new version) and tell the user what changed, as above. Move the app only if they ask, as below. `versions create` needs CLI 1.10.0 or later. With an older CLI, ask the user to upgrade as at the top.
 
 ## Upgrade, when the user asks
 
@@ -51,7 +51,7 @@ A refusal exits 1 with `{"error": {"code", "message"}}`. Tell the user the messa
 |---|---|
 | `NOT_PINNED` | `multipaas.json` pins no version of this application. Set the project up with the `multipaas-build` skill, or pass `--from` |
 | `NO_API_VERSION` | The application has no model yet. Model it first |
-| `ALREADY_LATEST` | The newest version already has the newest API features. Nothing to create: diff and pin as below |
+| `ALREADY_LATEST` | The newest version already has the newest API features. Nothing to create: diff it as in "See what changed", and move the app only if the user asks, as in "Upgrade, when the user asks" |
 | `MODEL_GENERATION_FAILED` | The model has something the newest API refuses. Tell the user the message. When it names a type name, the type-name paragraph above says what to do. Otherwise change nothing and offer to report it with the `multipaas-feedback` skill |
 | `NOT_FOUND` | No such API version of this application |
 | `UNAUTHORIZED` | The user lacks the permission the command needs in this application. `versions create` needs permission to change the model: tell the user that someone who can change the model has to run it |
