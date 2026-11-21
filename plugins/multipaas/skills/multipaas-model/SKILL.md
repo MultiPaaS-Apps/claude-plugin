@@ -71,7 +71,7 @@ A change MultiPaaS refuses exits 1 with `{"error": {"code", "message"}}` and a c
 
 | Code | Meaning |
 |---|---|
-| `UNAUTHORIZED` | The user may not change this application's model: they lack `model.edit` on the application. Making a field a parent, or changing what a parent field references (its `--references`, or a `--type` that is not `reference`), also needs `access.manage.application`: `field add --parent`, and any `field update` that leaves the field a parent while giving it a new parent link. Both are the same as in the web app. The CLI checks `model.edit` and `access.manage.application` in the default environment. Only someone who manages the application's access can grant it |
+| `UNAUTHORIZED` | The user may not change this application's model: they lack `model.edit` on the application. It counts only from a role granted in every environment, never from a role granted in one environment. Making a field a parent, or changing what a parent field references (its `--references`, or a `--type` that is not `reference`), also needs `access.manage.application`: `field add --parent`, and any `field update` that leaves the field a parent while giving it a new parent link. Both are the same as in the web app. `access.manage.application` here counts only from a role granted in every environment, the same way. Only someone who manages the application's access can grant it |
 | `NOT_FOUND` | No application with that id that the user can reach, or no entity, enum, field or constraint with the id given to `--id` |
 | `ENTITY_NOT_FOUND` | `--entity` or `--references` names no entity in this application |
 | `ENUM_NOT_FOUND` | `--id` of `enum update` or `enum delete` names no enum in this application |
