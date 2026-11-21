@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.6.0...v1.6.1) (2026-11-21)
+
+
+### Bug Fixes
+
+* [MP-309] say which permissions count only from a role granted in every environment ([#71](https://github.com/MultiPaaS-Apps/claude-plugin/issues/71)) ([3ab7140](https://github.com/MultiPaaS-Apps/claude-plugin/commit/3ab714036a52106f50de6603b74e603a8caf159c))
+
 ## [1.6.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.5.2...v1.6.0) (2026-11-21)
 
 
