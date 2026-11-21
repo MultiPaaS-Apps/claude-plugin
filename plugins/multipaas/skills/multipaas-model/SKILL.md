@@ -12,7 +12,7 @@ These commands need CLI 0.5.0 or later. If `multipaas --version` reports an olde
 
 A value from the user or their data goes into a command in single quotes, never bare or inside double quotes, as the `multipaas` skill describes. Write each `'` in it as `'\''`, and keep a leading `~/` of a path on disk outside the quotes.
 
-Every change acts on the live model of one application, as the signed-in developer, with exactly their permissions in the MultiPaaS web app. A change takes effect immediately and mints a new API version. There is no publish step.
+Every change acts on the live model of one application, as the signed-in developer, with exactly their permissions in the MultiPaaS web app. A change takes effect immediately and mints a new API version. A version can also be made without a model change, to get newer API features: see the `multipaas-upgrade` skill. There is no publish step.
 
 ## Before changing anything
 

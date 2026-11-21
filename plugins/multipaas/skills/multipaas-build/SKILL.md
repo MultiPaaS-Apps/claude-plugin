@@ -113,7 +113,7 @@ Anything a deployer may not do is refused with `UNAUTHORIZED`: tell the user it 
 
 ## Moving to a newer API version
 
-A model change mints a new API version. A model with an entity or enum whose type name is `File`, `FileUpload` or `HttpHeader` gets no new version while it has one (see the `multipaas-model` skill). The app stays on its pin until it moves, so a change never breaks it. To see what changed or to move the app, use the `multipaas-upgrade` skill.
+A model change mints a new API version, and `multipaas versions create` (CLI 1.10.0 or later) makes one of the same model when MultiPaaS has newer API features. A model with an entity or enum whose type name is `File`, `FileUpload` or `HttpHeader` gets no new version while it has one (see the `multipaas-model` skill). The app stays on its pin until it moves, so a change never breaks it. To see what changed or to move the app, use the `multipaas-upgrade` skill.
 
 ## Test data
 
