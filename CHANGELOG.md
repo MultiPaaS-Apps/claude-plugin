@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.8.0...v1.9.0) (2026-11-22)
+
+
+### Features
+
+* [MP-338] invite people and set their roles from the multipaas skill ([#89](https://github.com/MultiPaaS-Apps/claude-plugin/issues/89)) ([e7075e8](https://github.com/MultiPaaS-Apps/claude-plugin/commit/e7075e8b8f18c1e24dbe3255a017fdd429a7901e))
+
 ## [1.8.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.7.0...v1.8.0) (2026-11-22)
 
 
