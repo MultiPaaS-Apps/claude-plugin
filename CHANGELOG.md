@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.7.0...v1.8.0) (2026-11-22)
+
+
+### Features
+
+* [MP-337] import one source into a second app-tenant ([#85](https://github.com/MultiPaaS-Apps/claude-plugin/issues/85)) ([58d7471](https://github.com/MultiPaaS-Apps/claude-plugin/commit/58d7471fba858f684aeb6b7fb3484ba8d2a56e2e))
+
 ## [1.7.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.6.1...v1.7.0) (2026-11-21)
 
 
