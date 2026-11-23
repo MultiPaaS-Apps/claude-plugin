@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.9.0...v1.10.0) (2026-11-23)
+
+
+### Features
+
+* [MP-308] invite a reviewer into a pull request's test environment ([#87](https://github.com/MultiPaaS-Apps/claude-plugin/issues/87)) ([39541cc](https://github.com/MultiPaaS-Apps/claude-plugin/commit/39541cc4f57279630d4914818d390df2f75488c4))
+
+
+### Bug Fixes
+
+* [MP-339] stop telling agents members and invitation update don't work for a deployer ([#92](https://github.com/MultiPaaS-Apps/claude-plugin/issues/92)) ([f82a455](https://github.com/MultiPaaS-Apps/claude-plugin/commit/f82a455e9ed68b429a3f535222f05355836f9d8e))
+
 ## [1.9.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.8.0...v1.9.0) (2026-11-22)
 
 
