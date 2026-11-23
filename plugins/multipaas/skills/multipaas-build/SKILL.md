@@ -30,7 +30,7 @@ Creating an application (`apps create`) needs CLI 0.8.0 or later. Upgrade the sa
 
 `records update --expected-version`, and `version` in the output of `records get`, `list`, `create` and `update`, need CLI 1.4.0 or later; `files` in that output needs 1.3.0 or later. Upgrade the same way.
 
-`apps mcp-url` needs CLI <CLI_VERSION: confirm at release> or later. Upgrade the same way.
+`apps mcp-url` needs CLI 1.13.0 or later. Upgrade the same way.
 
 ## Set up the project
 
