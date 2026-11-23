@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.10.0...v1.11.0) (2026-11-23)
+
+
+### Features
+
+* [MP-341] tell the build skill an app-wide list you can't view is refused ([#93](https://github.com/MultiPaaS-Apps/claude-plugin/issues/93)) ([14fcd89](https://github.com/MultiPaaS-Apps/claude-plugin/commit/14fcd89bdab4701d2ee31dda5812e6c0537d0bc0))
+
 ## [1.10.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.9.0...v1.10.0) (2026-11-23)
 
 
