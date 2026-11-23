@@ -6,7 +6,7 @@ allowed-tools: Bash(multipaas *)
 
 # End-user sign-in
 
-An app's end users sign in to MultiPaaS through the app's own OAuth client. The app gets an access token for the generated API. The `multipaas-build` skill covers the project and the API calls.
+An app's end users sign in to MultiPaaS through the app's own OAuth client. The app gets an access token for the generated API. The `multipaas-build` skill covers the project and the API calls. For end users connecting Claude to the app over MCP, with no client to register, see "Agents connect over MCP" in the `multipaas-build` skill.
 
 These commands need CLI 0.3.0 or later, and the `application.manage_oauth` permission on the application. Creating, changing or deleting the sign-in client needs it from a role granted in every environment, because the client is shared by every environment; listing needs it only in the environment the command acts in. Without the permission, they're refused with `UNAUTHORIZED`, the same as in the web app. Only someone who manages the application's access can grant it.
 

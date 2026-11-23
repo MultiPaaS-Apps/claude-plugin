@@ -1,6 +1,6 @@
 ---
 name: multipaas-build
-description: Build an app on a MultiPaaS application's generated GraphQL API, pinned to one API version, by running the multipaas CLI — set up multipaas.json, pull the schema for codegen, and read and write test records. Use when the user wants to build, scaffold or change an app on their MultiPaaS model, call its API, create test data, set up a background job that acts as the app (app identities, client-credentials tokens) or work with app-wide data.
+description: Build an app on a MultiPaaS application's generated GraphQL API, pinned to one API version, by running the multipaas CLI — set up multipaas.json, pull the schema for codegen, and read and write test records. Use when the user wants to build, scaffold or change an app on their MultiPaaS model, call its API, create test data, set up a background job that acts as the app (app identities, client-credentials tokens) or work with app-wide data, or wants to know the MCP URL their app's users add to Claude.
 allowed-tools: Bash(multipaas *)
 ---
 
@@ -29,6 +29,8 @@ Creating an application (`apps create`) needs CLI 0.8.0 or later. Upgrade the sa
 `records list --where`, `--order-by` and `--count` need CLI 1.1.0 or later. Upgrade the same way.
 
 `records update --expected-version`, and `version` in the output of `records get`, `list`, `create` and `update`, need CLI 1.4.0 or later; `files` in that output needs 1.3.0 or later. Upgrade the same way.
+
+`apps mcp-url` needs CLI 1.13.0 or later. Upgrade the same way.
 
 ## Set up the project
 
@@ -61,6 +63,10 @@ In this directory, `--app` defaults to the application in `multipaas.json`, and 
 - The CLI doesn't run queries against the app's API. To see what records the app-tenant holds, use `multipaas records list` (below).
 - An enum field is a GraphQL enum named for its enum type. Send and read its values by their GraphQL names, which `multipaas.graphql` lists.
 - An app pinned to a version built after app-wide records shipped (its schema has an `enum RecordScope`) also gets these. Each record type has `appWide: Boolean!`. A list takes `scope: ALL | TENANT | APP_WIDE`, and the default is `ALL`: the app-tenant's own records plus the app-wide records in its environment that the caller's roles let them view. A list with `scope: APP_WIDE`, or any list under an app-wide token, including a related list on a record, is refused with an error whose `extensions.code` is `UNAUTHORIZED` and whose `path` names the list when the caller's roles don't let them view that entity's app-wide records, instead of coming back empty: tell the user which entity, and that a role with `record.app_wide.view` on it lets them list it: for an app-tenant token, held at that app-tenant or across the application in its environment; for an app-wide token, held across the application in the identity's environment. `createdBy` has `kind: PERSON | APP`. A user's `account` is `null` under an app-wide token, when the user is an app identity (under any token, `me` included), and when the user is the author of an app-wide record, so never read through `account` without a null check. A version pinned before that has none of these, and the `multipaas-upgrade` skill moves the app forward.
+
+## Agents connect over MCP
+
+An application's end users can connect Claude (web, desktop and Code) to it over MCP, with no code in the app. `multipaas apps mcp-url --json` prints `{"mcpUrl"}`, the URL for the default environment, or for `environmentId` in `multipaas.json` when that file is for the same application. `--app APP_ID` and `--env ENV_ID` override them. The environment in `multipaas.json` is usually a test one, so ask the user which environment their end users will use before you print the URL, find its id with `multipaas envs list --app APP_ID --json`, and pass it as `--env ENV_ID`, even for the default environment. Never write the URL from memory. Give the user that URL, and tell them their end users add it to Claude as a custom connector, sign in with their MultiPaaS account and pick the app-tenant, as on the app's own sign-in. In a Claude Team or Enterprise organization an owner adds the connector first and members then connect to it, so tell the user that their end users there need to ask an owner to add it. The agent gets a tool to list and a tool to get each entity's records, as the signed-in user: the records that user can read, which are their app-tenant's plus any app-wide records their roles let them view, through the newest API version, not the pinned one. For now agents can only read: they can't create, change or delete records. A refused `mcp-url` follows "When MultiPaaS refuses" below.
 
 ## Background jobs that act as the app
 
