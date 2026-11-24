@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.1](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.12.0...v1.12.1) (2026-11-24)
+
+
+### Bug Fixes
+
+* [MP-365] tell agents what INVITATION_NOT_SENT means ([#97](https://github.com/MultiPaaS-Apps/claude-plugin/issues/97)) ([a3e2a3f](https://github.com/MultiPaaS-Apps/claude-plugin/commit/a3e2a3f47dabc57d3527d434e5e805b807990e10))
+
 ## [1.12.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.11.0...v1.12.0) (2026-11-24)
 
 
