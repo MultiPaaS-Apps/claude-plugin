@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.11.0...v1.12.0) (2026-11-24)
+
+
+### Features
+
+* [MP-346] skills cover an app's MCP URL and connecting agents ([#88](https://github.com/MultiPaaS-Apps/claude-plugin/issues/88)) ([1641562](https://github.com/MultiPaaS-Apps/claude-plugin/commit/164156251d53db16716db0862a90b6f07b2f9b34))
+* [MP-372] the multipaas skill covers deleting an application ([#96](https://github.com/MultiPaaS-Apps/claude-plugin/issues/96)) ([069b16c](https://github.com/MultiPaaS-Apps/claude-plugin/commit/069b16c6efe73d37c0c68fd8e0f3f6462042bea7))
+
 ## [1.11.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.10.0...v1.11.0) (2026-11-23)
 
 
