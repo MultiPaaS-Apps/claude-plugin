@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.12.1...v1.13.0) (2026-11-24)
+
+
+### Features
+
+* [MP-347] build skill says agents can change records ([#98](https://github.com/MultiPaaS-Apps/claude-plugin/issues/98)) ([016908c](https://github.com/MultiPaaS-Apps/claude-plugin/commit/016908c7e1755d321640ef39796fee2839bed859))
+
 ## [1.12.1](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.12.0...v1.12.1) (2026-11-24)
 
 
