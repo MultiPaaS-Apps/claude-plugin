@@ -1,6 +1,6 @@
 {
   "name": "multipaas",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "description": "Build apps with MultiPaaS as the backend, without leaving Claude Code.",
   "author": {
     "name": "MultiPaaS"
