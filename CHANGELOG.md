@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.1](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.14.0...v1.14.1) (2026-11-25)
+
+
+### Bug Fixes
+
+* [MP-362] skills drop the confirm --tenant step on CLI 1.17.0 or later ([#103](https://github.com/MultiPaaS-Apps/claude-plugin/issues/103)) ([f0327e2](https://github.com/MultiPaaS-Apps/claude-plugin/commit/f0327e25b6c224b8cc8ee92de97bd041bee97818))
+
 ## [1.14.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.13.0...v1.14.0) (2026-11-25)
 
 
