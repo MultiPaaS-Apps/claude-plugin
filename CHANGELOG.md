@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.13.0...v1.14.0) (2026-11-25)
+
+
+### Features
+
+* [MP-348] describe the Allow changes choice in the sign-in and build skills ([#101](https://github.com/MultiPaaS-Apps/claude-plugin/issues/101)) ([d815fa4](https://github.com/MultiPaaS-Apps/claude-plugin/commit/d815fa4d059a309e9662c0edc78e618347b3d205))
+
 ## [1.13.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.12.1...v1.13.0) (2026-11-24)
 
 
