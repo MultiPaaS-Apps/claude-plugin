@@ -62,7 +62,7 @@ Use the `endpoints` that `multipaas init --json` printed, and `oauthClientId` fr
    - `state`: random, and checked on return
    - `environment`: the `environmentId` from `multipaas.json`, when it has one. Leave it out for the default environment. An environment that isn't one of the application's, or has been deleted, is refused with `invalid_request`.
 
-   There is no `scope` parameter. The user picks the app-tenant they are signing in to on the consent page. The consent page lists only the chosen environment's app-tenants, and the tokens are for that environment.
+   There is no `scope` parameter. The user picks the app-tenant they are signing in to on the consent page. The consent page lists only the chosen environment's app-tenants, and the tokens are for that environment. The consent page also has an **Allow changes** checkbox, on by default. When the user turns it off, the tokens can only read: every mutation is refused with `FORBIDDEN` ("This connection can only read"), and refreshed tokens keep the choice. An app that needs to change records should tell the user to sign in again with Allow changes on.
 2. **Exchange.** The callback receives `code` and `state`. Within 60 seconds, `POST` form-encoded to `endpoints.token` with `grant_type=authorization_code`, `client_id`, `code`, `redirect_uri` and `code_verifier`. The answer is `{"access_token", "refresh_token", "token_type": "Bearer", "expires_in": 3600}`.
 3. **Call the API** with `Authorization: Bearer <access_token>`, as the `multipaas-build` skill describes.
 4. **Refresh** before the access token expires: `POST` form-encoded to `endpoints.token` with `grant_type=refresh_token`, `client_id` and `refresh_token`.
