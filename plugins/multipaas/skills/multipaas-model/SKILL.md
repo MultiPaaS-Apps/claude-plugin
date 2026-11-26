@@ -43,7 +43,7 @@ All take `--app APP_ID --json`. On exit 0, a change prints `{"entity" | "enumTyp
 | `multipaas constraint add --entity ENTITY_ID --fields FIELD_ID,FIELD_ID` | Make those fields unique together. An entity can have up to 10 unique constraints, each over a different set of fields |
 | `multipaas constraint delete --id CONSTRAINT_ID` | Delete a constraint |
 
-`--description` on `entity create|update`, `field add|update` and `enum create|update`, and `--value-description` on `enum create|update`, need CLI 1.18.0 or later: check `multipaas --version` first, and if it is older, ask the user to upgrade as above. A description is at most 1000 characters; a longer one is refused with `VALIDATION`.
+`--description` on `entity create|update`, `field add|update` and `enum create|update`, and `--value-description` on `enum create|update`, need CLI 1.19.0 or later: check `multipaas --version` first, and if it is older, ask the user to upgrade as above. A description is at most 1000 characters; a longer one is refused with `VALIDATION`.
 
 Write descriptions in plain language for the people and agents who read them. Agents connected to the app over MCP see them in their tools.
 
