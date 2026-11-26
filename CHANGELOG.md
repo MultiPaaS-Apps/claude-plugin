@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.2](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.14.1...v1.14.2) (2026-11-26)
+
+
+### Bug Fixes
+
+* [MP-342] walk the keep-this-line remedy step by step in multipaas-import ([#105](https://github.com/MultiPaaS-Apps/claude-plugin/issues/105)) ([a94e929](https://github.com/MultiPaaS-Apps/claude-plugin/commit/a94e92946c6b1f8863045ce236af4294c8880f98))
+
 ## [1.14.1](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.14.0...v1.14.1) (2026-11-25)
 
 
