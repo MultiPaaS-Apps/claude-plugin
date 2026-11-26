@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.3](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.14.2...v1.14.3) (2026-11-26)
+
+
+### Bug Fixes
+
+* [MP-340] describe the changed list in multipaas-upgrade ([#108](https://github.com/MultiPaaS-Apps/claude-plugin/issues/108)) ([a12b1b2](https://github.com/MultiPaaS-Apps/claude-plugin/commit/a12b1b253b7947cf3baaef434ffad483ca0fb5f8))
+
 ## [1.14.2](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.14.1...v1.14.2) (2026-11-26)
 
 
