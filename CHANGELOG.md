@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.14.3...v1.15.0) (2026-11-26)
+
+
+### Features
+
+* [MP-349] the model skill covers descriptions ([#107](https://github.com/MultiPaaS-Apps/claude-plugin/issues/107)) ([851e3c3](https://github.com/MultiPaaS-Apps/claude-plugin/commit/851e3c3328c965c399475d67b288ad138c7ec135))
+
 ## [1.14.3](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.14.2...v1.14.3) (2026-11-26)
 
 
