@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.15.0...v1.16.0) (2026-11-27)
+
+
+### Features
+
+* [MP-375] the build skill backs off on LIMIT_REACHED ([#111](https://github.com/MultiPaaS-Apps/claude-plugin/issues/111)) ([4999497](https://github.com/MultiPaaS-Apps/claude-plugin/commit/4999497ca9373960022d567b997942cff57ffaa6))
+
 ## [1.15.0](https://github.com/MultiPaaS-Apps/claude-plugin/compare/v1.14.3...v1.15.0) (2026-11-26)
 
 
